@@ -1,0 +1,21 @@
+.top-nav{
+    text-align: left;
+}
+nav{
+    background-color: #14274E;
+}
+.navbar ul li{
+    list-style-type: none;
+    display: inline-flex;
+}
+.navbar ul li *{
+    color: white;
+    font-size: larger;
+}
+.title-logo{
+    color: white;
+}
+#logo{
+    height: 100px;
+    width: 100%;
+}
