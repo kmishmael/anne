@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { PostService } from '../post.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private postService: PostService){ }
 
   ngOnInit(): void {
   }
