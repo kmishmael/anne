@@ -1,0 +1,28 @@
+.article-title{
+    height: 20%;
+    top: 50;
+}
+.article-title p {
+    font-size: 20pt;
+    font-weight: bold;
+    padding-top: 1%;
+}
+
+.author-date{
+    display: flex;
+    margin-bottom: 1%;
+    height: fit-content;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-2%);
+    border-bottom: 1px solid rgb(41, 40, 40);
+}
+.author-date p{
+    padding-top: 5px;
+}
+.author{
+    margin-left: 1%;
+}
+.date{
+    margin-left: 3%;   
+}

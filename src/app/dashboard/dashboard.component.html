@@ -6,16 +6,30 @@
 
     <div class="articles">
         <ul>
-            <li class="article-card">
-                <div class="article-title">
-                    <p class="title">This is the first article</p>
-                    <p class="description">This is a brief description of the first article</p>
-                </div>
-                <div class="author-date">
-                    <p>Author: Timothy Chalamet</p>
-                    <p date="article-date">Date Published: 26-12-2021</p>
-                </div>
-            </li>
+            <a *ngFor="let post of posts" routerLink="/article/{{ post._id }}">
+                <li class="article-card">
+                    <div class="article-title">
+                        <p class="title">{{ post.title }}</p>
+                        <p class="description">{{ post.title }}</p>
+                    </div>
+                    <div class="author-date">
+                        <p>Author: {{ post.author }}</p>
+                        <p date="article-date">Date Published: {{ post.date |date }}</p>
+                    </div>
+                </li>
+            </a>
         </ul>
     </div>
+
+    <div class="page-controls" class="form-group">
+        <div *ngFor="let n of num|keyvalue" >
+            <p>it is {{ n.value }} </p>
+        </div>
+        <label for="pages">Navigate pages obk</label>
+        <select name="pages" id="Pages">
+            <option value="1" [value]="pageNum">1</option>
+        </select>
+    </div>
 </section>
+
+<router-outlet></router-outlet>

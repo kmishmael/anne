@@ -8,7 +8,9 @@ import { InnovationsComponent } from './innovations/innovations.component';
 import { AiComponent } from './ai/ai.component';
 import { EWasteComponent } from './e-waste/e-waste.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { PostdetailComponent } from './postdetail/postdetail.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import {HttpClientModule} from '@angular/common/http'
     InnovationsComponent,
     AiComponent,
     EWasteComponent,
-    DashboardComponent
+    DashboardComponent,
+    PostdetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
