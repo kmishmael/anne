@@ -12,6 +12,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/material.module';
 import { NetworkInterceptor } from './network.interceptor';
+import { PosteditComponent } from './postedit/postedit.component';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { NetworkInterceptor } from './network.interceptor';
     TechnologyComponent,
     DashboardComponent,
     PostdetailComponent,
+    PosteditComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostService } from '../post.service';
 import { Post, Num } from '../article';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,13 +15,17 @@ export class DashboardComponent implements OnInit {
   posts: Post[] = [];
   num: Num[];
   page:number = 1;
- // num;
+  routeUrl: string;
+ 
   pageNum: number;
   numOfPages: number;
   selectedPost: Post;
 
-  constructor(private postService: PostService){
-   }
+  buttonCreate: boolean = false;
+  buttonEdit: boolean = false;
+  buttonPublish: boolean = false;
+
+  constructor(private postService: PostService, private route: ActivatedRoute){ }
 
   ngOnInit(): void {
     this.getArticles();
@@ -38,7 +43,26 @@ export class DashboardComponent implements OnInit {
   getArticles(): void{
     this.postService.getArticles().subscribe(posts => this.posts = posts);
   }
-  
+  /*
+  getButton(): void {
+    this.routeUrl = this.route.snapshot.url.join('/');
+    if (this.routeUrl === 'dashboard'){
+      this.buttonCreate = true;
+    }else
+       if(this.routeUrl === 'category/tech'){
+         this.buttonCreate = true;
+      }else
+      if(this.routeUrl === 'category/sport'){
+        this.buttonCreate = true;
+     }else
+     if(this.routeUrl === 'category/entertainmen'){
+       this.buttonCreate = true;
+    }else
+    if(this.routeUrl === 'category/tech'){
+      this.buttonCreate = true;
+   }
+    }
+  }*/
   //return selected post
 
   selectPost(post: Post): Post{

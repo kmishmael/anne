@@ -10,7 +10,6 @@
     .title{
         font-size: 12pt;
     }
-
 }
 .article-card{
     list-style-type: none;
@@ -65,22 +64,31 @@
 a{
     text-decoration: none;
 }
-.previous-control{
-    font-size: 30pt;
-    text-align: right;
-    color: #14274E;
-    padding-right: 5%;
+.articles ul{
+    margin-top: 10px;
 }
-.next-control{
-    font-size: 30pt;
-    color: #14274E;
-    padding-left: 5%;
+.low-nav{
+    height: 40px;
+    border: 1px solid blue;
+    display: flex;
 }
-.previous-control:hover{
-    color: rgb(20, 38, 194);
-    cursor: pointer;
+#add{
+    border-radius: 50px;
+    background-color: transparent;
+    color: rgb(109, 18, 109);
+    border: 1px solid rgb(173, 13, 173);
+    margin-left: 80%;
 }
-.next-control:hover{
-    color: rgb(20, 38, 194);
-    cursor: pointer;
+#add:hover{
+    background-color: rgb(199, 15, 199);
+    color: white;
+}
+.home{
+    margin-left: 5%;
+}
+.home:hover{
+    background-color: rgb(167, 13, 167);
+    color: white;
+    transition: ease-in-out;
+    transition-duration: .5s;
 }

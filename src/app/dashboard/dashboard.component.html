@@ -1,7 +1,13 @@
+<div class="low-nav">
+    <button mat-icon-button color="primary" class="home">
+        <mat-icon>home</mat-icon>
+    </button>
+    <button mat-raised-button color="primary" id="add" routerLink="/article/create">Create</button>
+</div>
 <section class="container">    
     <div class="articles" *ngIf="posts">
         <ul>
-            <a *ngFor="let post of posts| paginate : { itemsPerPage: 10, currentPage: page}" routerLink="/article/{{ post._id }}">
+            <a *ngFor="let post of posts| paginate : { itemsPerPage: 10, currentPage: page}" routerLink="/article/view/{{ post._id }}">
                 <mat-card class="article-card">
                     <div class="article-title">
                         <p class="title">{{ post.title }}</p>

@@ -1,11 +1,8 @@
-<section class="container">
-    <div class="blog-controls">
-        <p>Articles</p>
-    </div>
+<section class="container">    
     <div class="articles" *ngIf="posts">
         <ul>
-            <a *ngFor="let post of posts" routerLink="./article/{{ post._id }}">
-                <li class="article-card">
+            <a *ngFor="let post of posts| paginate : { itemsPerPage: 10, currentPage: page}" routerLink="/article/view/{{ post._id }}">
+                <mat-card class="article-card">
                     <div class="article-title">
                         <p class="title">{{ post.title }}</p>
                         <p class="description">{{ post.title }}</p>
@@ -13,23 +10,14 @@
                     <div class="author-date">
                         <p><i class="bi bi-person-circle" style="margin-right: 7px; font-size: 12pt;"></i>{{ post.author|titlecase }}</p>
                         <p class="article-date"><i class="bi bi-calendar-check-fill" style="margin-right: 7px; font-size: 12pt;"></i>{{ post.date |date }}</p>
-                 <!--   <p class="category-tag"><i class="bi bi-tag" style="margin-right: 10px; font-size: 12pt;"></i>{{ post.category |titlecase}}</p>-->
                     </div>
-                </li>
+                </mat-card>
             </a>
+            <div class="pagination-controls container" style="text-align: center;">
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
         </ul>
     </div>
-    <div class="pagination-controls container" style="text-align: center;">
-        <pagination-controls (pageChange)="page = $event"></pagination-controls>
-    </div>
-    <!--
-    <div class="page-controls">
-        <div class="previous-control">
-            <i class="bi bi-arrow-left-square-fill"></i>
-        </div>
-        <div class="next-control">
-            <i class="bi bi-arrow-right-square-fill"></i>
-        </div>
-    </div>-->
 </section>
+
 <router-outlet></router-outlet>
