@@ -1,5 +1,19 @@
-<form name="post">
-    <label for="title"></label>
+<form name="post" [formGroup] = "formEdit" (ngSubmit)="onSubmit">
 
+    <label for="author">Author</label>
+    <input type="text" id="author" formControlName="author">
+
+    <label for="category">Category</label>
+    <input type="text" id="category" formControlName="category">
+
+    <label for="title">Title</label>
+    <input type="text" id="title" formControlName="title">
+
+    <label for="content">Content</label>
+    <input type="text" id="content" formControlName="content">
+    
+  <!--  <input type="text" value="" formControlName="date"> -->
+
+    <button type="submit" (click)="onSubmit()">Submit</button>
     
 </form>

@@ -69,7 +69,6 @@ a{
 }
 .low-nav{
     height: 40px;
-    border: 1px solid blue;
     display: flex;
 }
 #add{
