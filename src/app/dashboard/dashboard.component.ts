@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostService } from '../post.service';
 import { Post, Num } from '../article';
@@ -6,12 +6,14 @@ import { Post, Num } from '../article';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class DashboardComponent implements OnInit {
 
   posts: Post[] = [];
   num: Num[];
+  page:number = 1;
  // num;
   pageNum: number;
   numOfPages: number;

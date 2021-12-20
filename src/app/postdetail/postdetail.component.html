@@ -5,8 +5,9 @@
     <div class="author-date">
         <p class="author"><i class="bi bi-person-circle" style="margin-right: 10px; font-size: 16pt;"></i>{{ post.author }}</p>
         <p class="date"><i class="bi bi-calendar-check-fill" style="margin-right: 10px; font-size: 16pt;"></i>{{ post.date |date}}</p>
+        <p class="date"><i class="bi bi-tag" style="margin-right: 10px; font-size: 16pt;"></i>{{ post.category }}</p>
     </div>
-    <div class="content">
+    <div class="content container">
         <p>{{ post.content }}</p>
     </div>
 </div>

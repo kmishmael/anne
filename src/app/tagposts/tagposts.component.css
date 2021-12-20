@@ -10,7 +10,6 @@
     .title{
         font-size: 12pt;
     }
-
 }
 .article-card{
     list-style-type: none;
@@ -64,23 +63,4 @@
 }
 a{
     text-decoration: none;
-}
-.previous-control{
-    font-size: 30pt;
-    text-align: right;
-    color: #14274E;
-    padding-right: 5%;
-}
-.next-control{
-    font-size: 30pt;
-    color: #14274E;
-    padding-left: 5%;
-}
-.previous-control:hover{
-    color: rgb(20, 38, 194);
-    cursor: pointer;
-}
-.next-control:hover{
-    color: rgb(20, 38, 194);
-    cursor: pointer;
 }

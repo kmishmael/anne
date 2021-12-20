@@ -1,21 +1,47 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+
 <title>
 {{ title }}
 </title>
-
 <nav class="navbar navbar-expand-lg">
 
 <div class="container" id="top-nav">
   <div class="title-logo navbar-brand">
-    <img id="logo" src="../assets/images/Anne.png" alt="Company logo">
+    <img src="../assets/images/Anne_2.png" id="logo_img" alt="">
+    <a routerLink="/" id="logo">
+     ANNE
+    </a>
   </div>
   <div class="nav-ls">
     <ul>
-      <li class="nav-item"><a class="nav-link" href="" routerLink="/dashboard">Technology</a></li>
-      <li class="nav-item"><a class="nav-link" href="">Innovations</a></li>
-      <li class="nav-item"><a class="nav-link" href="">AI</a> AI</li>
-      <li class="nav-item"><a class="nav-link" href="">E-waste</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/category/tech">Technology</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/category/business">Business</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/category/sport">Sports</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/category/politics">Politics</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/category/entertainment">Entertainment</a></li>
     </ul>
   </div>
   </div>
 </nav>
+<mat-card class="lower-card">
+  <p>Articles</p>
+  <button mat-raised-button color="primary" id="add">Add</button>
+</mat-card>
+<mat-progress-bar [mode]="'indeterminate'" color="warm" *ngIf="loading"></mat-progress-bar>
 <router-outlet></router-outlet>
+<!--
+<div class="footer container-fluid">
+  <p>Anne 2022</p>
+</div>-->
+
+<div class="spinner" *ngIf="loading">
+  <div class="bounce1" style="background-color: rgb(57, 57, 199);"></div>
+  <div class="bounce2" style="background-color: rgb(57, 57, 199);"></div>
+  <div class="bounce3" style="background-color: rgb(57, 57, 199);"></div>
+</div>
+
+
+<!--
+<mat-progress-spinner [mode]="'indeterminate'" class="mat-progress-spinner" *ngIf="loading"></mat-progress-spinner>-->
