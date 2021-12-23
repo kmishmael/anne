@@ -1,8 +1,12 @@
-const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://anne:anne2021@cluster0.l084b.mongodb.net/annedb?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
+const express = require('express');
+
+const path = require('path');
+
+const app = express();
+
+app.use(express.static(__dirname + '/dist/anne'));
+
+app.get('/*', function(req,res){
+    res.sendFile(path.join(__dirname+'/dist/anne/index.html'));
 });
+app.listen(process.env.PORT || 8080)
