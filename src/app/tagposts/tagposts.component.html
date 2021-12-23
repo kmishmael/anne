@@ -1,3 +1,9 @@
+<div class="low-nav">
+    <button mat-icon-button color="primary" class="home" (click)="goBack()">
+        <i class="material-icons">arrow_back</i>
+    </button>
+      <button mat-raised-button color="primary" id="add" routerLink="/article/create/">Create</button>
+</div>
 <section class="container">    
     <div class="articles" *ngIf="posts">
         <ul>

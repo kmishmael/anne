@@ -7,10 +7,14 @@ import { Post, Num } from './article';
   providedIn: 'root'
 })
 export class PostService {
-  postsUrl: string = "http://localhost:8080/posts/";
-  postNumUrl: string = "http://localhost:8080/num/";
-  postUrl: string = "http://localhost:8080/post/";
-  postOfCategory: string = "http://localhost:8080/posts/";
+  SERVER_URL: string = "http://localhost:8080/";
+  postsUrl: string = `${this.SERVER_URL}posts/`;
+  postUrl: string = `${this.SERVER_URL}post/`;
+  createUrl: string = `${this.SERVER_URL}post/create`;
+  updateUrl: string = `${this.SERVER_URL}post/update`;
+  deleteUrl: string = `${this.SERVER_URL}post/delete`;
+  latestPostUrl: string = `${this.SERVER_URL}latest`;
+  urlCreate: string = "http://localhost:8080/post/create";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -22,9 +26,7 @@ export class PostService {
     );*/
   }
 
-  getNum(): Observable<Num[]>{
-    return this.httpClient.get<Num[]>(this.postNumUrl)
-  }
+
   /*
   getPost(): Observable<Post>{
     console.log("post has been retrieved");
@@ -37,7 +39,21 @@ export class PostService {
   }
 
   getPostsOfCategory(category: string): Observable<Post[]>{
-    return this.httpClient.get<Post[]>(this.postOfCategory.concat(category))
+    return this.httpClient.get<Post[]>(this.postsUrl.concat(category))
+  }
+
+  createPost(post): Observable<any>{
+    console.log(post);
+    return this.httpClient.post(this.urlCreate, post)
+  }
+
+  updatePost(post, id): Observable<any>{
+    return this.httpClient.put(this.updateUrl.concat(id), post)
+  }
+
+  getLatestPost(): Observable<Post>{
+    console.log(this.httpClient.get<Post>(this.latestPostUrl));
+    return this.httpClient.get<Post>(this.latestPostUrl)
   }
 
 }

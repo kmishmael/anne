@@ -1,13 +1,20 @@
-<div class="container" *ngIf="post">
-    <div class="article-title">     
-        <p class="title">{{ post.title }}</p>
+<div *ngIf="post">
+    <div class="low-nav">
+        <button mat-icon-button color="primary" class="home" (click)="goBack()">
+            <i class="material-icons">arrow_back</i>
+        </button>
+        <button mat-raised-button color="primary" id="add" routerLink="/article/update/{{ post._id }}">Edit</button>
     </div>
-    <div class="author-date">
-        <p class="author"><i class="bi bi-person-circle" style="margin-right: 10px; font-size: 16pt;"></i>{{ post.author }}</p>
-        <p class="date"><i class="bi bi-calendar-check-fill" style="margin-right: 10px; font-size: 16pt;"></i>{{ post.date |date}}</p>
-        <p class="date"><i class="bi bi-tag" style="margin-right: 10px; font-size: 16pt;"></i>{{ post.category }}</p>
-    </div>
-    <div class="content container">
-        <p>{{ post.content }}</p>
-    </div>
+    <div class="container">
+        <div class="article-title">    
+            <p class="title">{{ post.title }}</p>
+        </div>
+        <div class="author-date">
+            <p class="author"><i class="bi bi-person-circle" style="margin-right: 10px; font-size: 16pt;"></i>{{ post.author }}</p>
+            <p class="date"><i class="bi bi-calendar-check-fill" style="margin-right: 10px; font-size: 16pt;"></i>{{ post.date |date}}</p>
+            <p class="date"><i class="bi bi-tag" style="margin-right: 10px; font-size: 16pt;"></i>{{ post.category }}</p>
+        </div>
+        <div class="content container">
+            <p>{{ post.content }}</p>
+        </div>
 </div>

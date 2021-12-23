@@ -1,19 +1,47 @@
-<form name="post" [formGroup] = "formEdit" (ngSubmit)="onSubmit">
+<div class="low-nav">
+  <button mat-icon-button color="primary" class="home" (click)="goBack()">
+    <i class="material-icons">arrow_back</i>
+  </button>
+    <button mat-raised-button color="primary" id="add" *ngIf="isAddMode" (click)="onSubmit()">Publish</button>
+    <button mat-raised-button color="primary" id="add" *ngIf="!isAddMode" (click)="onSubmit()">Update</button>
+</div>
 
-    <label for="author">Author</label>
-    <input type="text" id="author" formControlName="author">
-
-    <label for="category">Category</label>
-    <input type="text" id="category" formControlName="category">
-
-    <label for="title">Title</label>
-    <input type="text" id="title" formControlName="title">
-
-    <label for="content">Content</label>
-    <input type="text" id="content" formControlName="content">
+<div class="container">
+  <mat-card class="form">
+  <form name="post" [formGroup] = "postForm" (ngSubmit)="onSubmit">
     
-  <!--  <input type="text" value="" formControlName="date"> -->
+      <mat-card style="background-color: white; color: black;" class="form-group">
+      <label for="author">Author</label>
+        <input type="text" id="author" formControlName="author" class="form-control">
+      </mat-card>
 
-    <button type="submit" (click)="onSubmit()">Submit</button>
+    <mat-card class="form-group" style="background-color: white;color: black; margin-top: 15px;">
+      <label for="category">Category</label>
+      <select name="" id="category" class="form-control" formControlName="category">
+        <option value="tech">Technology</option>
+        <option value="sport">Sports</option>
+        <option value="entertainment">Entertainment</option>
+        <option value="business">Business</option>
+        <option value="politics">Politics</option>
+      </select>
+    </mat-card>
+
+    <mat-card class="form-group" style="background-color: white;color: black;margin-top: 15px;">
+      <label for="title">Title</label>
+      <input type="text" id="title" formControlName="title" class="form-control">
+    </mat-card>
+
+    <mat-card class="form-group" style="background-color: white;color: black;margin-top: 15px;">
+      <label for="content">Content</label>
+      <textarea name="" id="content" cols="50" rows="20" formControlName="content" class="form-control"></textarea>
+    </mat-card>
+    <!--  <input type="text" value="" formControlName="date"> -->
+
+   <button type="submit" (click)="onSubmit()">Submit</button>
     
-</form>
+  </form>
+  </mat-card>
+</div>
+
+<form>
+ 

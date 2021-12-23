@@ -1,0 +1,40 @@
+.form{
+    margin-top: 10px;
+    background-color: white;
+    color: black;
+}
+.low-nav{
+    height: 40px;
+    display: flex;
+}
+#add{
+    margin-top: 2px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: rgb(109, 18, 109);
+    border: 1px solid rgb(173, 13, 173);
+    margin-left: 80%;
+}
+#add:hover{
+    background-color: rgb(199, 15, 199);
+    color: white;
+}
+.home{
+    margin-left: 5%;
+}
+.home:hover{
+    background-color: rgb(167, 13, 167);
+    color: white;
+    transition: ease-in-out;
+    transition-duration: .5s;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }

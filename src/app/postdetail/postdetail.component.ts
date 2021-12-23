@@ -11,25 +11,31 @@ import { Post } from '../article';
 })
 export class PostdetailComponent implements OnInit, OnDestroy {
   post: Post;
-  sub;
+  id: string;
+  path: string;
+  late: Post;
+
   constructor(private route: ActivatedRoute, private location: Location, private postService: PostService) { }
 
   ngOnInit(): void {
-   this.getPost();
-  }
-
-  rungetPost():void{
+    //this.path = this.route.snapshot.url.join('/');
     this.getPost();
+    
   }
 
   getPost(): void{
-    const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
-    this.sub = this.postService.getPost(id).subscribe(post => this.post = post);
-    this.sub;
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.postService.getPost(this.id).subscribe(post => this.post = post);
   }
-  ngOnDestroy(): void {
-      this.sub.unsubscribe();
+
+  getLatestPost(): void{
+    this.postService.getLatestPost().subscribe(post => this.late = post);
   }
+
+  goBack(): void{
+    this.location.back();
+  }
+
+  ngOnDestroy(): void {}
 
 }

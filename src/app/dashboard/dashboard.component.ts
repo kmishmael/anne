@@ -13,7 +13,6 @@ import { ActivatedRoute } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   posts: Post[] = [];
-  num: Num[];
   page:number = 1;
   routeUrl: string;
  
@@ -29,15 +28,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getArticles();
-    this.getNumArticles();
 
    //this.numOfPages = this.num
   }
 
   // Get the number of articles
-  getNumArticles(): void{
-    this.postService.getNum().subscribe(num => this.num = num)
-  }
 
   //get the articles for home page
   getArticles(): void{

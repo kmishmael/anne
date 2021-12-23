@@ -10,6 +10,11 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
 
+  { path: 'article/create', component: PosteditComponent },
+  { path: 'article/update/:id', component: PosteditComponent },
+
+  {path: 'article/published/latest', component: PostdetailComponent},
+
   // home article detail view
   { path: 'article/view/:id', component: PostdetailComponent },
 
@@ -18,7 +23,7 @@ const routes: Routes = [
   { path: 'category/:category/article/:id', component: PostdetailComponent},
 
   // Create an article
-  {path: 'article/create', component: PosteditComponent}
+ // {path: 'post/create', component: DashboardComponent}
 
 ];
 
