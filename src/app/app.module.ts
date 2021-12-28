@@ -8,12 +8,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PostdetailComponent } from './postdetail/postdetail.component';
-import { NgxPaginationModule } from 'ngx-pagination';
+//import { NgxPaginationModule } from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/material.module';
 import { NetworkInterceptor } from './network.interceptor';
 import { PosteditComponent } from './postedit/postedit.component';
-
 
 @NgModule({
   declarations: [
@@ -28,10 +27,10 @@ import { PosteditComponent } from './postedit/postedit.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgxPaginationModule,
+    //NgxPaginationModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {

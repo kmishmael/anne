@@ -7,7 +7,8 @@
 <section class="container">    
     <div class="articles" *ngIf="posts">
         <ul>
-            <a *ngFor="let post of posts| paginate : { itemsPerPage: 10, currentPage: page}" routerLink="/article/view/{{ post._id }}">
+            <!-- paginate : { itemsPerPage: 10, currentPage: page}-->
+            <a *ngFor="let post of posts" routerLink="/article/view/{{ post._id }}">
                 <mat-card class="article-card">
                     <div class="article-title">
                         <p class="title">{{ post.title }}</p>
@@ -20,9 +21,9 @@
                     </div>
                 </mat-card>
             </a>
-            <div class="pagination-controls container" style="text-align: center;">
+   <!--    <div class="pagination-controls container" style="text-align: center;">
                 <pagination-controls (pageChange)="page = $event"></pagination-controls>
-            </div>
+            </div>-->
         </ul>
     </div>
 </section>
