@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post, Num } from './article';
-
+import { urls } from '../app/urls.config';
 @Injectable({
   providedIn: 'root'
 })
