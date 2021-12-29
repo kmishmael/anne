@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "anne-34eb7"
+    "default": "anne-7aee1"
+  },
+  "targets": {
+    "anne-7aee1": {
+      "hosting": {
+        "anne": [
+          "anne-7aee1"
+        ]
+      }
+    }
   }
 }
