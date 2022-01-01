@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post, Num } from './article';
+import { Article } from './article.model';
 import { urls } from '../app/urls.config';
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/compat/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,24 +18,26 @@ export class PostService {
   latestPostUrl: string = `${this.SERVER_URL}latest`;
   urlCreate: string = "http://localhost:8080/post/create";
 
-  constructor(private httpClient: HttpClient) { }
+  lastVisible: Post[];
+  pageSize: number = 12;
 
-  getArticles(): Observable<Post[]>{
-    return this.httpClient.get<Post[]>(this.postsUrl)
+  constructor(private httpClient: HttpClient, private firestore: AngularFirestore){ }
+  //Observable<DocumentChangeAction<Article>[]>
+  getArticles(): any{
+    return this.firestore.collection('posts', ref =>
+      ref.orderBy('date', 'desc').limit(this.pageSize)
+    ).snapshotChanges()
     /*
     .pipe(
       catchError(this.handleError<Post[]>('getarticles', []))
     );*/
   }
-
-
-  /*
-  getPost(): Observable<Post>{
-    console.log("post has been retrieved");
-    return this.httpClient.get<Post>(this.postUrl)
-
-  }*/
-
+  getNextPage(posts: any): any{
+    return this.firestore.collection('posts', ref =>
+      ref.orderBy('date', 'desc').limit(this.pageSize).startAfter(posts)
+    ).snapshotChanges()
+  }
+   
   getPost(id: string): Observable<Post>{
     return this.httpClient.get<Post>(this.postUrl.concat(id))
   }

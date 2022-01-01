@@ -19,10 +19,10 @@ export class PostdetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //this.path = this.route.snapshot.url.join('/');
-    this.getPost();
+   // this.getPost();
     
   }
-
+/*
   getPost(): void{
     this.id = this.route.snapshot.paramMap.get('id');
     this.postService.getPost(this.id).subscribe(post => this.post = post);
@@ -31,7 +31,7 @@ export class PostdetailComponent implements OnInit, OnDestroy {
   getLatestPost(): void{
     this.postService.getLatestPost().subscribe(post => this.late = post);
   }
-
+*/
   goBack(): void{
     this.location.back();
   }

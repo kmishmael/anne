@@ -15,7 +15,9 @@ import { NetworkInterceptor } from './network.interceptor';
 import { PosteditComponent } from './postedit/postedit.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+//import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore/'; 
+import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
   declarations: [
@@ -34,8 +36,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
     {

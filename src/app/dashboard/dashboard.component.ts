@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { PostService } from '../post.service';
 import { Post, Num } from '../article';
 import { ActivatedRoute } from '@angular/router';
+import * as PostJson from '../../assets/json/bbc-articles.json';
+import { Article } from '../article.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,11 +14,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  posts: Post[] = [];
+  posts: Article[];
   page:number = 1;
   routeUrl: string;
+  
+  pos: Article[];
  
-  pageNum: number;
+  pageNumber: number = 1;
   numOfPages: number;
   selectedPost: Post;
 
@@ -24,10 +28,12 @@ export class DashboardComponent implements OnInit {
   buttonEdit: boolean = false;
   buttonPublish: boolean = false;
 
+ // lastVisible: Post[] =[];
+
   constructor(private postService: PostService, private route: ActivatedRoute){ }
 
   ngOnInit(): void {
-    this.getArticles();
+    this.getNextPage();
 
    //this.numOfPages = this.num
   }
@@ -36,30 +42,57 @@ export class DashboardComponent implements OnInit {
 
   //get the articles for home page
   getArticles(): void{
-    this.postService.getArticles().subscribe(posts => this.posts = posts);
+    this.postService.getArticles().subscribe(posts => {
+      this.posts = posts.map(e => {
+        return{
+          id: e.payload.doc.id,
+          title: e.payload.doc.get('title'),
+          author: e.payload.doc.get('author'),
+          category: e.payload.doc.get('category'),
+          content: e.payload.doc.get('content'),
+          date: e.payload.doc.get('date'),
+        }as Article
+      })
+    });
+  }
+
+  getNext(): void{
+    this.postService.getArticles().subscribe(posts => {
+      this.posts = posts.map(e => {
+        return{
+          id: e.payload.doc.id,
+          title: e.payload.doc.get('title'),
+          author: e.payload.doc.get('author'),
+          category: e.payload.doc.get('category'),
+          content: e.payload.doc.get('content'),
+          date: e.payload.doc.get('date'),
+        }as Article
+      })
+    });
+  }
+
+  
+  getNextPage(): any{
+    this.pageNumber++;
+    this.postService.getNextPage(this.posts).subscribe(posts => {
+      this.posts = posts.map(e => {
+        return{
+          id: e.payload.doc.id,
+          title: e.payload.doc.get('title'),
+          author: e.payload.doc.get('author'),
+          category: e.payload.doc.get('category'),
+          content: e.payload.doc.get('content'),
+          date: e.payload.doc.get('date'),
+        }as Article
+      })
+    });
   }
   /*
-  getButton(): void {
-    this.routeUrl = this.route.snapshot.url.join('/');
-    if (this.routeUrl === 'dashboard'){
-      this.buttonCreate = true;
-    }else
-       if(this.routeUrl === 'category/tech'){
-         this.buttonCreate = true;
-      }else
-      if(this.routeUrl === 'category/sport'){
-        this.buttonCreate = true;
-     }else
-     if(this.routeUrl === 'category/entertainmen'){
-       this.buttonCreate = true;
-    }else
-    if(this.routeUrl === 'category/tech'){
-      this.buttonCreate = true;
-   }
-    }
+  
   }*/
   //return selected post
 
+   
   selectPost(post: Post): Post{
     this.selectedPost = post;
     return this.selectedPost
