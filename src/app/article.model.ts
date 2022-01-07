@@ -1,5 +1,5 @@
 export class Article {
-    id?: number;
+    id?: String;
     title?: string;
     content?: string;
     author?: string;

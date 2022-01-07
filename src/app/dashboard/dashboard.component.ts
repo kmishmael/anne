@@ -33,12 +33,9 @@ export class DashboardComponent implements OnInit {
   constructor(private postService: PostService, private route: ActivatedRoute){ }
 
   ngOnInit(): void {
-    this.getNextPage();
-
-   //this.numOfPages = this.num
+    this.getArticles()
+    //console.log(this.getArticles());
   }
-
-  // Get the number of articles
 
   //get the articles for home page
   getArticles(): void{
@@ -51,48 +48,11 @@ export class DashboardComponent implements OnInit {
           category: e.payload.doc.get('category'),
           content: e.payload.doc.get('content'),
           date: e.payload.doc.get('date'),
-        }as Article
-      })
+        } as Article
+      }).filter(e => e.category == 'tech')
     });
   }
 
-  getNext(): void{
-    this.postService.getArticles().subscribe(posts => {
-      this.posts = posts.map(e => {
-        return{
-          id: e.payload.doc.id,
-          title: e.payload.doc.get('title'),
-          author: e.payload.doc.get('author'),
-          category: e.payload.doc.get('category'),
-          content: e.payload.doc.get('content'),
-          date: e.payload.doc.get('date'),
-        }as Article
-      })
-    });
-  }
-
-  
-  getNextPage(): any{
-    this.pageNumber++;
-    this.postService.getNextPage(this.posts).subscribe(posts => {
-      this.posts = posts.map(e => {
-        return{
-          id: e.payload.doc.id,
-          title: e.payload.doc.get('title'),
-          author: e.payload.doc.get('author'),
-          category: e.payload.doc.get('category'),
-          content: e.payload.doc.get('content'),
-          date: e.payload.doc.get('date'),
-        }as Article
-      })
-    });
-  }
-  /*
-  
-  }*/
-  //return selected post
-
-   
   selectPost(post: Post): Post{
     this.selectedPost = post;
     return this.selectedPost

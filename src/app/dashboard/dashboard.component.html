@@ -3,13 +3,12 @@
         <mat-icon>home</mat-icon>
     </button>
     <button mat-raised-button color="primary" id="add" routerLink="/article/create/">Create</button>
-    <button mat-raised-button color="primary"(click)="getNextPage()">NextPage</button>
 </div>
 <section class="container">    
     <div class="articles" *ngIf="posts">
         <ul>
             <!-- paginate : { itemsPerPage: 10, currentPage: page}-->
-            <a *ngFor="let post of posts" routerLink="/article/view/{{ post.id }}">
+            <a *ngFor="let post of posts | paginate : { itemsPerPage: 16, currentPage: page }" routerLink="/article/view/{{ post.id }}">
                 <mat-card class="article-card">
                     <div class="article-title">
                         <p class="title">{{ post.title }}</p>
@@ -22,9 +21,9 @@
                     </div>
                 </mat-card>
             </a>
-   <!--    <div class="pagination-controls container" style="text-align: center;">
+            <div class="pagination-controls container" style="text-align: center;">
                 <pagination-controls (pageChange)="page = $event"></pagination-controls>
-            </div>-->
+            </div>
         </ul>
     </div>
 </section>

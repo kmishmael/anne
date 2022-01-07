@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { Post, Num } from './article';
 import { Article } from './article.model';
 import { urls } from '../app/urls.config';
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/compat/firestore';
+import { AnyArray } from 'mongoose';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,40 +20,47 @@ export class PostService {
   urlCreate: string = "http://localhost:8080/post/create";
 
   lastVisible: Post[];
-  pageSize: number = 12;
+  pageSize: number = 16;
 
   constructor(private httpClient: HttpClient, private firestore: AngularFirestore){ }
   //Observable<DocumentChangeAction<Article>[]>
-  getArticles(): any{
-    return this.firestore.collection('posts', ref =>
-      ref.orderBy('date', 'desc').limit(this.pageSize)
-    ).snapshotChanges()
-    /*
+  
+  getArticles(): Observable<DocumentChangeAction<Article>[]>{
+    const collection = this.firestore.collection<Article>('posts', ref =>
+      ref.orderBy('date', 'desc')
+    )
+    const posts$ = collection.snapshotChanges();
+    return posts$
+/*
     .pipe(
       catchError(this.handleError<Post[]>('getarticles', []))
     );*/
   }
-  getNextPage(posts: any): any{
+  
+ /*
+  getArticles(): Observable<DocumentChangeAction<unknown>[]>{
+    const data = new Observable<DocumentChangeAction<unknown>[]>(this.firestore.collection('posts', ref => 
+    ref.orderBy('date', 'desc')
+    ).snapshotChanges())
+    return data
+  }
+   */
+  getPost(id: string): Observable<any>{
+    return this.firestore.collection('posts').doc(id).snapshotChanges()
+  }
+
+  getPostsOfCategory(): any{
     return this.firestore.collection('posts', ref =>
-      ref.orderBy('date', 'desc').limit(this.pageSize).startAfter(posts)
+    ref.orderBy('date', 'asc').limit(16)
     ).snapshotChanges()
   }
-   
-  getPost(id: string): Observable<Post>{
-    return this.httpClient.get<Post>(this.postUrl.concat(id))
+
+  createPost(post: Article): any{
+    return this.firestore.collection('posts').add(post)
   }
 
-  getPostsOfCategory(category: string): Observable<Post[]>{
-    return this.httpClient.get<Post[]>(this.postsUrl.concat(category))
-  }
-
-  createPost(post): Observable<any>{
-    console.log(post);
-    return this.httpClient.post(this.urlCreate, post)
-  }
-
-  updatePost(post, id): Observable<any>{
-    return this.httpClient.put(this.updateUrl.concat(id), post)
+  updatePost(post, id: string): Promise<void>{
+    return this.firestore.collection('posts').doc(id).update(post)
   }
 
   getLatestPost(): Observable<Post>{

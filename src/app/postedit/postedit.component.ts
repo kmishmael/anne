@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { PostService } from '../post.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Article } from '../article.model';
+
 
 @Component({
   selector: 'app-postedit',
@@ -20,6 +22,7 @@ export class PosteditComponent implements OnInit {
   id: string;
   postForm: FormGroup;
   data:any;
+  rawForm: any;
   
 
   constructor(private httpClient: HttpClient, private postService: PostService, private route: ActivatedRoute,
@@ -32,12 +35,39 @@ export class PosteditComponent implements OnInit {
   ngOnInit(): void {
 
     this.id = this.route.snapshot.params['id'];
-    this.isAddMode = !this.id
+    this.isAddMode = !this.id;
 
+    /*
     if (!this.isAddMode){
       console.log("Seems we are not adding this time");
       this.postService.getPost(this.id)
-        .subscribe(x =>  this.postForm.patchValue(x));
+        .subscribe(x => this.rawForm = x.map(
+          e => {
+            const obj = {
+              id: e.payload.doc.id,
+              title: e.payload.doc.get('title'),
+              author: e.payload.doc.get('author'),
+              category: e.payload.doc.get('category'),
+              content: e.payload.doc.get('content'),
+              date: e.payload.doc.get('date'),
+            } as Article;
+            console.log(obj);
+          }
+        )
+        )
+         // this.postForm.patchValue(e);
+    }
+*/
+    if(!this.isAddMode){
+      this.postService.getPost(this.id)
+      .subscribe(post => {
+        this.rawForm = {
+            id: post.payload.id,
+            ...post.payload.data() as Article,
+          };
+      console.log(this.rawForm);
+    
+      })
     }
 
     this.postForm = new FormGroup({
@@ -73,8 +103,14 @@ export class PosteditComponent implements OnInit {
       "category": post.category,
       "content": post.content,
       "date": todayDate,
-    }
-    let myobj = JSON.stringify(mypost);
+    } as Article
+    //let myobj = JSON.stringify(mypost);
+    this.postService.createPost(mypost).subscribe({
+      error: error =>{
+        console.log('There was an erro!', error.message);
+      }}
+    )
+    /*
     this.httpClient.post("http://localhost:8080/post/create", myobj).subscribe({
     next: data => {
       this.data = data;
@@ -82,7 +118,7 @@ export class PosteditComponent implements OnInit {
   error: error => {
       console.error('There was an error!', error.message);
   }
-});
+});*/
   
   }
 
@@ -94,14 +130,16 @@ export class PosteditComponent implements OnInit {
       "category": post.category,
       "content": post.content,
       "date": todayDate,
-    }
+    } as Article
+    /*
     this.postService.updatePost(JSON.stringify(mypost), this.id)
         .subscribe({
           error: error => {
             this.loading = false;
           }
         });
-    alert("The Article has been updated.");
+    alert("The Article has been updated.");*/
+    this.postService.updatePost(mypost, this.id)
   }
 
 }

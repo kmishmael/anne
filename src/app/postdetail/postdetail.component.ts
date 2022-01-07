@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { PostService } from '../post.service';
 import { Post } from '../article';
+import { Article } from '../article.model';
 
 @Component({
   selector: 'app-postdetail',
@@ -10,7 +11,7 @@ import { Post } from '../article';
   styleUrls: ['./postdetail.component.css']
 })
 export class PostdetailComponent implements OnInit, OnDestroy {
-  post: Post;
+  post: Article;
   id: string;
   path: string;
   late: Post;
@@ -18,20 +19,21 @@ export class PostdetailComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private location: Location, private postService: PostService) { }
 
   ngOnInit(): void {
-    //this.path = this.route.snapshot.url.join('/');
-   // this.getPost();
+    this.getPost();
     
   }
-/*
+
   getPost(): void{
     this.id = this.route.snapshot.paramMap.get('id');
-    this.postService.getPost(this.id).subscribe(post => this.post = post);
+    var post = this.postService.getPost(this.id).subscribe(post => {
+      this.post = {
+          id: post.payload.id,
+          ...post.payload.data() as Article,
+        };
+    console.log(post);
+  })
   }
 
-  getLatestPost(): void{
-    this.postService.getLatestPost().subscribe(post => this.late = post);
-  }
-*/
   goBack(): void{
     this.location.back();
   }
