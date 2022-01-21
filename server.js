@@ -1,4 +1,10 @@
-///const port = 8080;
+/*
+const app = require('./server/index');
+const express = require('express')
+
+app = express();
+*/
+
 
 const cors = require('cors')
 const express = require('express')
@@ -7,9 +13,10 @@ const bodyParser = require("body-parser");
 //const Client  = require('mongodb').MongoClient
 const app = express();
 //const router = express.Router();
-const db = require("./app/models/posts.model");
-const dbConfig = require("./app/config/db.config");
-var routes = require('./app/routes/app.routes')
+const dbConfig = require("./server/app/config/db.config");
+var routes = require('./server/app/routes/app.routes');
+
+const path = require('path');
 
 app.use(cors());
 app.use(express.json());
@@ -33,14 +40,10 @@ mongoose.connect(url,  {
     console.log("Cannot connect to database!", err);
 });
 
-app.get("/", (req, res, next) => {
-    res.json({ message: "Test Message" });
+app.use(express.static(__dirname + '/dist/anne'));
+
+app.get('/*', function(req,res){
+    res.sendFile(path.join(__dirname+'/dist/anne/index.html'));
 });
 
-/*
-app.listen(port, function () {
-    console.log("Runnning on " + port);
-});
-*/
-
-module.exports = app;
+app.listen(process.env.PORT || 8080)
