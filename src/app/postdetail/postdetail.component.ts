@@ -5,6 +5,7 @@ import { PostService } from '../post.service';
 import { Post } from '../article';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { CommentsService } from '../comments.service';
 
 @Component({
   selector: 'app-postdetail',
@@ -30,7 +31,6 @@ export class PostdetailComponent implements OnInit, OnDestroy {
     return this.route.snapshot.paramMap.get('id')
   }
 
-
   getPost(): void{
     this.id = this.getId();
     this.get_article$ = this.postService.getArticle(this.id).subscribe({
@@ -47,7 +47,7 @@ export class PostdetailComponent implements OnInit, OnDestroy {
     this.dialog.closeAll();
     this.postService.deleteArticle(id).subscribe({
       next: (response) => {
-        console.log(response);
+        //console.log(response);
       },
       error: (err) => {
         console.log(err);
@@ -82,10 +82,21 @@ export class PostdetailComponent implements OnInit, OnDestroy {
 export class optionsubComponent {
   @Input() id: string;
 
-  constructor(private route: ActivatedRoute, private postService: PostService, public dialog: MatDialog,
-    private postdetailComponent: PostdetailComponent, @Inject(MAT_DIALOG_DATA)public post_id: any){}
+  constructor(public dialog: MatDialog, private postdetailComponent: PostdetailComponent, @Inject(MAT_DIALOG_DATA)public post_id: any,
+  private commentService: CommentsService){}
 
   deletePost(){
     this.postdetailComponent.deletePost(this.post_id);
+    this.commentService.deleteCommentsOfPost(this.post_id).subscribe({
+      next: (result) => {
+
+      },
+      error: (err) => {
+        console.log(err)
+      },
+      complete: () => {
+        // code here
+      }
+    })
   }
 }

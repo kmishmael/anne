@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Anonymous</h2>
+<mat-dialog-content class="mat-typography">
+  <h2>{{ comment.content }}</h2>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button cdkFocusInitial (click)="delete(comment._id)">Delete</button>
+</mat-dialog-actions>

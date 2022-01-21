@@ -13,6 +13,7 @@ export class PostService {
   createUrl: string = "api/article/create/";
   updateUrl: string = "api/article/update/";
   deleteUrl: string = "api/article/delete/";
+  latestUrl: string = "api/article/get/latest/";
 
   lastVisible: Post[];
   pageSize: number = 16;
@@ -22,6 +23,13 @@ export class PostService {
   //get Articles from server through http request
   getArticles(params: HttpParams): Observable<any>{
     return this.httpClient.get<any>(this.postsUrl, {params})
+    .pipe(
+      retry(3)
+    )
+  }
+
+  getLatest(): Observable<any>{
+    return this.httpClient.get<any>(this.latestUrl)
     .pipe(
       retry(3)
     )
@@ -57,6 +65,7 @@ export class PostService {
   deleteArticle(id: string): Observable<any>{
     return this.httpClient.delete(`${this.deleteUrl}${id}/`)
   }
+
 
 }
 

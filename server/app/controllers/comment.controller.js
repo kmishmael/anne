@@ -5,10 +5,8 @@ exports.create = (req, res) =>{
     newComment.save((err, comment) =>{
         if (err){
             res.status(500).send(err);
-            console.log(err);
         }
         res.status(201).json(comment);
-        console.log("comment created successfully")
     })
 }
 
@@ -37,5 +35,24 @@ exports.find = (req, res) => {
             res.status(500).send(err);
         }
         res.status(200).json(comments);
+    }).sort({date: -1})
+}
+
+exports.findOneComment = (req, res) => {
+    Comment.findOne({_id: req.params.id}, req.body, (err, comment) => {
+        if(err){
+            res.status(500).send(err);
+        }
+        res.status(200).json(comment);
+    })
+}
+
+exports.deleteOfArticle = (req, res) => {
+    var myquery = { post_id: req.params.id };
+    Comment.deleteMany(myquery, req.body, (err, query) => {
+        if(err){
+            res.status(500).send(err);
+        }
+        res.status(200).send(query)
     })
 }

@@ -20,6 +20,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 import { AngularFireModule } from '@angular/fire/compat';
 import { CommentsComponent } from './comments/comments.component';
 import { optionsubComponent } from './postdetail/postdetail.component';
+import { commentEditSubComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { optionsubComponent } from './postdetail/postdetail.component';
     PostdetailComponent,
     PosteditComponent,
     CommentsComponent,
-    optionsubComponent
+    optionsubComponent, 
+    commentEditSubComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { optionsubComponent } from './postdetail/postdetail.component';
       useClass: NetworkInterceptor,
       multi: true,
     },
-    PostdetailComponent
+    PostdetailComponent,
+    CommentsComponent
   ],
   bootstrap: [AppComponent]
 })

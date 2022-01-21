@@ -5,38 +5,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap');
 
 /* Comment section*/
-body {
-    background: #eee
-}
 
-.date {
-    font-size: 11px
+.container{
+    margin-top: 10%;
 }
-
-.comment-text {
-    font-size: 12px
+.card{
+    background-color: white;
+    width: 60%;
 }
-
-.fs-12 {
-    font-size: 12px
+.comment-head mat-card-subtitle{
+    color: black;
+    font-size: larger;
+    font-weight: bold;
 }
-
-.shadow-none {
-    box-shadow: none
+.actions{
+    text-align: right;
+    padding-right: 10%;
 }
-
-.name {
-    color: #007bff
+.subclose:hover{
+    background-color: rgb(199, 15, 199);
 }
-
-.cursor:hover {
-    color: blue
+.display{
+    margin-top: 10px;
 }
-
-.cursor {
-    cursor: pointer
+.head{
+    color: rgb(199, 15, 199);
+    font-size: 24pt;
+    text-transform: capitalize;
+    transition: ease-in;
+    font-weight: bold;
 }
-
-.textarea {
-    resize: none
+.no-comments{
+    color: rgb(199, 15, 199);
+    font-size: 24pt;
+    text-transform: capitalize;
+    transition: ease-in;
+    font-weight: bold;
+}
+.comments-each{
+    margin-top: 5px;
+    margin-bottom: 10%;
+}
+.comment-card{
+    background-color: white;
+    width: 60%;
+    margin-top: 10px;
+}
+.com-actions{
+    color: rgb(199, 15, 199);
+    border: none;
+    font-size: 12pt;
+    background-color: white;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.com-actions:hover{
+    color: white;
+    background-color: #c50746;
+    transition: ease-in;
+    transition-duration: 0.5s;
 }

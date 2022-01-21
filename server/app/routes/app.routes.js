@@ -25,14 +25,20 @@ router
 
         .put("/article/update/:id", posts.update)
 
+        .get("/article/get/latest", posts.findLatest)
+
            //comments routes
         .get("/article/comments/:id", comments.find)
+
+        .get("/article/comment/view/:id", comments.findOneComment)
 
         .post("/article/comment/create", comments.create)
 
         .put("/article/comment/update/:id", comments.update)
 
         .delete("/article/comment/delete/:id", comments.delete)
+
+        .delete("/article/comments/delete/:id", comments.deleteOfArticle)
         
 
 module.exports = router;

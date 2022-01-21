@@ -6,6 +6,7 @@ import { PostService } from '../post.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Article } from '../article.model';
+import { CommentsComponent } from '../comments/comments.component';
 
 
 @Component({
@@ -23,10 +24,11 @@ export class PosteditComponent implements OnInit {
   postForm: FormGroup;
   data:any;
   rawForm: any;
+  latest_id: string;
   
 
   constructor(private httpClient: HttpClient, private postService: PostService, private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location, private commentsCoponent: CommentsComponent ) { }
 
   goBack():void{
     this.location.back();
@@ -84,7 +86,10 @@ export class PosteditComponent implements OnInit {
         console.log('There was an error!', error.message);
       },
       complete: () => {
-        this.location.back();
+        this.commentsCoponent.wait(6000).then(() => {
+          this.getLatestId();
+        });
+        //this.location.back();
       }
     }
     )
@@ -99,6 +104,23 @@ export class PosteditComponent implements OnInit {
 });*/
   
   }
+
+  
+  getLatestId(): void{
+    this.postService.getLatest().subscribe({
+      next: (post) => {
+        //
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        //this.latest_id;
+      }
+    })
+  
+  }
+
 
   private updatePost(post: Post){
     console.log(this.id);

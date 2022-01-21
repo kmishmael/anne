@@ -55,6 +55,7 @@ nav{
     margin: 100px auto 0;
     width: 70px;
     text-align: center;
+    z-index: 10;
   }
   
   .spinner > div {
@@ -112,3 +113,22 @@ nav{
 #add{
 margin-left: 80%;
 }
+
+.nav-link{
+  border-radius: 10px;
+  color: white;
+  background-color: transparent;
+  margin-right: 2px;
+  border: none;
+}
+.nav-link:hover{
+  background-color: rgb(99, 40, 99);
+  transition: ease-in-out;
+  transition-duration: 1s;
+}
+.news-head a{
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+

@@ -9,14 +9,23 @@ import { Observable, retry } from 'rxjs';
 })
 export class CommentsService {
   commentsUrl: string = "api/article/comments/";
+  commentUrl: string = "api/article/comment/view/";
   createUrl: string = "api/article/comment/create";
   updateUrl: string = "api/article/comment/update/";
-  deleteUrl: string = "api/article/comment/delete/:id";
+  deleteUrl: string = "api/article/comment/delete/";
+  PostDeleteUrl: string = "api/article/comments/delete/";
 
   constructor(private httpClient: HttpClient, private route: ActivatedRoute) { }
 
   getComments(post_id: string): Observable<any>{
     return this.httpClient.get<any>(`${this.commentsUrl}${post_id}/`)
+    .pipe(
+      retry(3)
+    )
+  }
+
+  getComment(id: string): Observable<any>{
+    return this.httpClient.get<any>(`${this.commentUrl}${id}/`)
     .pipe(
       retry(3)
     )
@@ -33,5 +42,9 @@ export class CommentsService {
   deleteComment(comment_id: string){
     return this.httpClient.delete<any>(this.deleteUrl.concat(`${comment_id}/`))
   } 
+
+  deleteCommentsOfPost(post_id: string){
+    return this.httpClient.delete<any>(this.PostDeleteUrl.concat(`${post_id}/`))
+  }
 
 }
