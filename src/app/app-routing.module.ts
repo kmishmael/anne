@@ -7,8 +7,9 @@ import { PosteditComponent } from './postedit/postedit.component';
 
 const routes: Routes = [
   // home page routes
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: '', redirectTo: '/articles', pathMatch: 'full' },
+  { path: 'articles', component: DashboardComponent },
+ // { path: 'articles/page/:page', component: DashboardComponent },
 
   { path: 'article/create', component: PosteditComponent },
   { path: 'article/update/:id', component: PosteditComponent },
@@ -29,7 +30,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })
   ],
   exports: [RouterModule]
 })

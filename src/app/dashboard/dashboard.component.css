@@ -91,3 +91,27 @@ a{
     transition: ease-in-out;
     transition-duration: .5s;
 }
+#prev{
+    font-size: 36px; 
+    margin-right: 10px;
+    color: rgb(167, 13, 167);
+}
+#next{
+    font-size: 36px;
+    margin-left: 10px;
+    color: rgb(167, 13, 167);
+}
+#prev:hover{
+    color: white;
+    background-color: rgb(167, 13, 167);
+    border-radius: 45px;
+    transition-duration: 0.5s;
+    transition: ease-in;
+}
+#next:hover{
+    color: white;
+    background-color: rgb(167, 13, 167);
+    border-radius: 45px;
+    transition-duration: 0.5s;
+    transition: ease-in;
+}

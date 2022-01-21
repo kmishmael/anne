@@ -37,36 +37,11 @@ export class PosteditComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
 
-    /*
-    if (!this.isAddMode){
-      console.log("Seems we are not adding this time");
-      this.postService.getPost(this.id)
-        .subscribe(x => this.rawForm = x.map(
-          e => {
-            const obj = {
-              id: e.payload.doc.id,
-              title: e.payload.doc.get('title'),
-              author: e.payload.doc.get('author'),
-              category: e.payload.doc.get('category'),
-              content: e.payload.doc.get('content'),
-              date: e.payload.doc.get('date'),
-            } as Article;
-            console.log(obj);
-          }
-        )
-        )
-         // this.postForm.patchValue(e);
-    }
-*/
     if(!this.isAddMode){
-      this.postService.getPost(this.id)
+      console.log("we are not adding");
+      this.postService.getArticle(this.id)
       .subscribe(post => {
-        this.rawForm = {
-            id: post.payload.id,
-            ...post.payload.data() as Article,
-          };
-      console.log(this.rawForm);
-    
+        this.postForm.patchValue(post);
       })
     }
 
@@ -76,7 +51,6 @@ export class PosteditComponent implements OnInit {
       content: new FormControl(''),
       category: new FormControl('')
     });
-    this.onSubmit();
     
   }
 
@@ -87,6 +61,7 @@ export class PosteditComponent implements OnInit {
       console.log(this.post);
     }
     else if (!this.isAddMode){
+
       this.updatePost(this.post);
     }
     else{
@@ -95,20 +70,23 @@ export class PosteditComponent implements OnInit {
   }
 
   createPost(post: Post): void{
-    var todayDate = new Date().toISOString().slice(0, 10);
-
+    var todayDate = new Date(new Date().toISOString().slice(0, 10))
     const mypost = {
       "title": post.title,
       "author": post.author,
       "category": post.category,
       "content": post.content,
       "date": todayDate,
-    } as Article
+    } 
     //let myobj = JSON.stringify(mypost);
-    this.postService.createPost(mypost).subscribe({
+    this.postService.createArticle(mypost).subscribe({
       error: error =>{
-        console.log('There was an erro!', error.message);
-      }}
+        console.log('There was an error!', error.message);
+      },
+      complete: () => {
+        this.location.back();
+      }
+    }
     )
     /*
     this.httpClient.post("http://localhost:8080/post/create", myobj).subscribe({
@@ -123,23 +101,25 @@ export class PosteditComponent implements OnInit {
   }
 
   private updatePost(post: Post){
-    var todayDate = new Date().toISOString().slice(0, 10);
+    console.log(this.id);
+    var todayDate = new Date(new Date().toISOString().slice(0, 10));
     const mypost = {
       "title": post.title,
       "author": post.author,
       "category": post.category,
       "content": post.content,
       "date": todayDate,
-    } as Article
-    /*
-    this.postService.updatePost(JSON.stringify(mypost), this.id)
-        .subscribe({
-          error: error => {
-            this.loading = false;
-          }
-        });
-    alert("The Article has been updated.");*/
-    this.postService.updatePost(mypost, this.id)
+    } as Post
+    console.log(mypost)
+    
+    this.postService.updateArticle(mypost, this.id).subscribe({
+      error: err => {
+        console.log(err);
+      },
+      complete: () => {
+        this.location.back();
+      }
+    });
   }
 
 }

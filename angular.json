@@ -77,7 +77,8 @@
               "browserTarget": "anne:build:production"
             },
             "development": {
-              "browserTarget": "anne:build:development"
+              "browserTarget": "anne:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

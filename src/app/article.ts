@@ -6,7 +6,3 @@ export interface Post{
     date: Date,
     category: string
 }
-
-export interface Num{
-    num: number
-}

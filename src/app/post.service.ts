@@ -1,71 +1,61 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { filter, Observable } from 'rxjs';
-import { Post, Num } from './article';
-import { Article } from './article.model';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { catchError, filter, map, Observable, retry } from 'rxjs';
+import { Post} from './article';
 import { urls } from '../app/urls.config';
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from '@angular/fire/compat/firestore';
-import { AnyArray } from 'mongoose';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  SERVER_URL: string = "http://localhost:8080/";
-  postsUrl: string = `${this.SERVER_URL}posts/`;
-  postUrl: string = `${this.SERVER_URL}post/`;
-  createUrl: string = `${this.SERVER_URL}post/create`;
-  updateUrl: string = `${this.SERVER_URL}post/update`;
-  deleteUrl: string = `${this.SERVER_URL}post/delete`;
-  latestPostUrl: string = `${this.SERVER_URL}latest`;
-  urlCreate: string = "http://localhost:8080/post/create";
+  postsUrl: string = "api/articles/";
+  postUrl: string = "api/article/";
+  createUrl: string = "api/article/create/";
+  updateUrl: string = "api/article/update/";
+  deleteUrl: string = "api/article/delete/";
 
   lastVisible: Post[];
   pageSize: number = 16;
 
-  constructor(private httpClient: HttpClient, private firestore: AngularFirestore){ }
-  //Observable<DocumentChangeAction<Article>[]>
+  constructor(private httpClient: HttpClient){ }
   
-  getArticles(): Observable<DocumentChangeAction<Article>[]>{
-    const collection = this.firestore.collection<Article>('posts', ref =>
-      ref.orderBy('date', 'desc')
-    )
-    const posts$ = collection.snapshotChanges();
-    return posts$
-/*
+  //get Articles from server through http request
+  getArticles(params: HttpParams): Observable<any>{
+    return this.httpClient.get<any>(this.postsUrl, {params})
     .pipe(
-      catchError(this.handleError<Post[]>('getarticles', []))
-    );*/
+      retry(3)
+    )
+  }
+
+  //get a single article
+  getArticle(id: string): Observable<any>{
+    const reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'No-Auth': 'True' });
+    return this.httpClient.get<any>(`${this.postUrl}${id}/`, {headers: reqHeader})
+    .pipe(
+      retry(3)
+    )
+  } 
+  
+  //get Posts belonging to a certain category
+  getTaggedPosts(category: string): Observable<Post[]>{
+    return this.httpClient.get<Post[]>(this.postsUrl.concat(`${category}/`))
+    .pipe(
+      retry(3)
+    )
+  }
+
+  //create an article using post request
+  createArticle(post: Post): Observable<any>{
+    return this.httpClient.post(this.createUrl, post)
+  }
+
+  //update the Article
+  updateArticle(post: Post, id: string){
+    return this.httpClient.put(this.updateUrl.concat(`${id}`), post)
   }
   
- /*
-  getArticles(): Observable<DocumentChangeAction<unknown>[]>{
-    const data = new Observable<DocumentChangeAction<unknown>[]>(this.firestore.collection('posts', ref => 
-    ref.orderBy('date', 'desc')
-    ).snapshotChanges())
-    return data
-  }
-   */
-  getPost(id: string): Observable<any>{
-    return this.firestore.collection('posts').doc(id).snapshotChanges()
-  }
-
-  getPostsOfCategory(): any{
-    return this.firestore.collection('posts', ref =>
-    ref.orderBy('date', 'asc').limit(16)
-    ).snapshotChanges()
-  }
-
-  createPost(post: Article): any{
-    return this.firestore.collection('posts').add(post)
-  }
-
-  updatePost(post, id: string): Promise<void>{
-    return this.firestore.collection('posts').doc(id).update(post)
-  }
-
-  getLatestPost(): Observable<Post>{
-    console.log(this.httpClient.get<Post>(this.latestPostUrl));
-    return this.httpClient.get<Post>(this.latestPostUrl)
+  deleteArticle(id: string): Observable<any>{
+    return this.httpClient.delete(`${this.deleteUrl}${id}/`)
   }
 
 }

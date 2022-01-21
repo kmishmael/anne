@@ -3,7 +3,7 @@ import { Post } from '../article';
 import { PostService } from '../post.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Article } from '../article.model';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-tagposts',
@@ -30,30 +30,18 @@ export class TechnologyComponent implements OnInit {
   
   ngOnInit(): void {
     this.getPosts();
-    this.test();
   }
 
   getPosts(): void{
     //const category = this.route.snapshot.paramMap.get('category');
     const category = this.category;
-    this.postService.getPostsOfCategory().subscribe(posts => {
-      this.posts = posts.map(e => {
-        return{
-          id: e.payload.doc.id,
-          title: e.payload.doc.get('title'),
-          author: e.payload.doc.get('author'),
-          category: e.payload.doc.get('category'),
-          content: e.payload.doc.get('content'),
-          date: e.payload.doc.get('date'),
-        }as Article
-      }).filter(doc => doc.category == category)
-    });
+    this.postService.getTaggedPosts(category).subscribe(posts => {
+      this.posts = posts
+      });
   //  this.tags = this.posts.filter(post => post.category === 'tech');
     //console.log(this.posts)
   }
 
-  test(): void{
-    console.log(this.posts)
-  }
+
 
   }

@@ -3,7 +3,13 @@
         <button mat-icon-button color="primary" class="home" (click)="goBack()">
             <i class="material-icons">arrow_back</i>
         </button>
-        <button mat-raised-button color="primary" id="add" routerLink="/article/update/{{ post.id }}">Edit</button>
+       <!-- <button mat-raised-button color="primary" id="add" routerLink="/article/update/{{ post._id }}">Edit</button>-->
+
+        <button mat-raised-button color="primary" id="add" [matMenuTriggerFor]="menu">Options</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/article/update/{{ post._id }}">Edit</button>
+            <button mat-menu-item (click)="openDialog()">Delete</button>
+        </mat-menu>
     </div>
     <div class="container">
         <div class="article-title">    
@@ -18,3 +24,5 @@
             <p>{{ post.content }}</p>
         </div>
 </div>
+
+<app-comments></app-comments>

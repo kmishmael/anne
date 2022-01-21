@@ -18,6 +18,8 @@ import { environment } from '../environments/environment';
 //import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore/'; 
 import { AngularFireModule } from '@angular/fire/compat';
+import { CommentsComponent } from './comments/comments.component';
+import { optionsubComponent } from './postdetail/postdetail.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +28,15 @@ import { AngularFireModule } from '@angular/fire/compat';
     DashboardComponent,
     PostdetailComponent,
     PosteditComponent,
+    CommentsComponent,
+    optionsubComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgxPaginationModule,
+   // NgxPaginationModule,
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
@@ -45,6 +49,7 @@ import { AngularFireModule } from '@angular/fire/compat';
       useClass: NetworkInterceptor,
       multi: true,
     },
+    PostdetailComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostService } from '../post.service';
-import { Post, Num } from '../article';
+import { Post } from '../article';
 import { ActivatedRoute } from '@angular/router';
-import * as PostJson from '../../assets/json/bbc-articles.json';
-import { Article } from '../article.model';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,13 +13,13 @@ import { Article } from '../article.model';
 })
 export class DashboardComponent implements OnInit {
 
-  posts: Article[];
-  page:number = 1;
+  posts: Post[];
+  page: number = 1;
+  size: number = 12; 
   routeUrl: string;
   
-  pos: Article[];
  
-  pageNumber: number = 1;
+  
   numOfPages: number;
   selectedPost: Post;
 
@@ -33,26 +32,43 @@ export class DashboardComponent implements OnInit {
   constructor(private postService: PostService, private route: ActivatedRoute){ }
 
   ngOnInit(): void {
-    this.getArticles()
-    //console.log(this.getArticles());
+    this.getArticles();
+    
   }
 
-  //get the articles for home page
+  getParams(): HttpParams{
+    return new HttpParams().set('page', this.page).set('size', this.size)
+  } 
+  
   getArticles(): void{
-    this.postService.getArticles().subscribe(posts => {
-      this.posts = posts.map(e => {
-        return{
-          id: e.payload.doc.id,
-          title: e.payload.doc.get('title'),
-          author: e.payload.doc.get('author'),
-          category: e.payload.doc.get('category'),
-          content: e.payload.doc.get('content'),
-          date: e.payload.doc.get('date'),
-        } as Article
-      }).filter(e => e.category == 'tech')
-    });
+    const params = this.getParams();
+    this.postService.getArticles(params).subscribe(posts =>{
+      this.posts = posts.payload;
+      this.numOfPages = posts.pages;
+    })
+  }
+  
+  getNextPage(): void{
+    this.posts = [];
+    if (this.page >= this.numOfPages){
+      this.page;
+    }
+    else{
+      this.page++;
+    }
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    this.getArticles();
   }
 
+  getPrevPage(): void{
+    if (this.page <= 1){
+      this.page;
+    } 
+    else{
+      this.page--;
+    }
+    this.getArticles();
+  }
   selectPost(post: Post): Post{
     this.selectedPost = post;
     return this.selectedPost
