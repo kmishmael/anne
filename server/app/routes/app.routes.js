@@ -1,0 +1,50 @@
+'use strict';
+const express = require('express');
+var posts = require('../controllers/post.controller');
+var comments = require('../controllers/comment.controller');
+const { post } = require('jquery');
+
+const router = express.Router();
+
+router.get("/", (req, res, next) => {
+    res.json({ message: "Anne server RESTful API" });
+});
+
+router
+        //post routes
+        .get('/articles', posts.findPage)
+        .post('/articles', posts.create)
+
+        .get("/article/:id", posts.findOne)
+
+        .post("/article/create", posts.create)
+
+        .get("/articles/:category", posts.findCategory)
+
+        .delete("/article/delete/:id", posts.delete)
+
+        .put("/article/update/:id", posts.update)
+
+           //comments routes
+        .get("/article/comments/:id", comments.find)
+
+        .post("/article/comment/create", comments.create)
+
+        .put("/article/comment/update/:id", comments.update)
+
+        .delete("/article/comment/delete/:id", comments.delete)
+        
+
+module.exports = router;
+/*
+        
+    //put and delete request for posts endpoints
+
+    app
+        .route("")
+        .put();
+    
+    app
+        .route("")
+        .put();
+*/

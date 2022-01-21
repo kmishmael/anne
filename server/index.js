@@ -5,20 +5,20 @@ const mongoose = require('mongoose')
 const bodyParser = require("body-parser");
 //const Client  = require('mongodb').MongoClient
 const app = express();
-const router = express.Router();
-const db = require("./app/models/posts");
+//const router = express.Router();
+const db = require("./app/models/posts.model");
 const dbConfig = require("./app/config/db.config");
-var routes = require('./app/routes/routes')
+var routes = require('./app/routes/app.routes')
 
 app.use(cors());
 app.use(express.json());
-app.use('/api', router);
+app.use('/api', routes);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-routes(app);
+//routes("api/", app);
 
 var url = dbConfig.url;
 

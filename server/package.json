@@ -1,10 +1,10 @@
 {
   "name": "anne-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Kibet Ismael",
   "license": "ISC",
@@ -16,5 +16,15 @@
     "mongodb": "^4.2.1",
     "mongoose": "^6.1.1",
     "nodemon": "^2.0.15"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kmishmael/anne-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kmishmael/anne-server/issues"
+  },
+  "homepage": "https://github.com/kmishmael/anne-server#readme",
+  "description": ""
 }

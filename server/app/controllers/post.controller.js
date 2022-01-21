@@ -1,4 +1,4 @@
-const Post = require("../models/posts");
+const Post = require("../models/posts.model");
 
 const numPosts = 10;
 
@@ -15,17 +15,6 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all Tutorials from the database.
-exports.findAll = (req, res) => {
-    Post.find({}, (err, post) => {
-        if (err) {
-            res.status(500).send(err);
-        }
-        res.status(200).json(post);
-        console.log("STATUS 200");
-    })
-};
-
 exports.findPage = (req, res) => {
     var page = parseInt(req.query.page);
     var size = parseInt(req.query.size);
@@ -34,6 +23,7 @@ exports.findPage = (req, res) => {
         response = {"error": true, "message": "invalid page number, should start with 1"};
         return res.json(response)
     }
+    query.sort = {date: -1}
     query.skip = size * (page - 1);
     query.limit = size;
     //lets find some documents
@@ -55,6 +45,17 @@ exports.findPage = (req, res) => {
     })
    
 }
+
+// Retrieve all Tutorials from the database.
+exports.findAll = (req, res) => {
+    Post.find({}, (err, post) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        res.status(200).json(post);
+        console.log("STATUS 200");
+    })
+};
 
 exports.findLatest = (req, res) => {
     Post.find({}, (err, post) => {
