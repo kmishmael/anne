@@ -28,7 +28,7 @@ exports.findPage = (req, res) => {
 
     Post.count({}, (err, pages) => {
         if(err){
-            response.status(500).send(err);
+            res.status(500).send(err);
         }
         Post.find({},{}, query, (err, data) =>{
             // Mongo command to fetch all data from collection
