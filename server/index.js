@@ -1,4 +1,4 @@
-const port = 8080;
+//const port = 8080;
 
 const cors = require('cors')
 const express = require('express')
@@ -43,10 +43,10 @@ app.get("/", (req, res, next) => {
     res.json({ message: "Test Message" });
 });
 
-
+/*
 app.listen(port, function () {
     console.log("Runnning on " + port);
 });
-
+*/
 
 module.exports = app;

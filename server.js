@@ -1,11 +1,3 @@
-/*
-const app = require('./server/index');
-const express = require('express')
-
-app = express();
-*/
-
-
 const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')

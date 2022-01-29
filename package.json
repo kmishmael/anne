@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently -c \"yellow.bold,green.bold\" -n \"BACKEND,FRONTEND\" \"nodemon server\" \"ng serve --port 80\"",
+    "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
