@@ -5,31 +5,7 @@
 <title>
 {{ title }}
 </title>
-<nav class="navbar navbar-expand-lg">
 
-<div class="container" id="top-nav">
-  <div class="title-logo navbar-brand">
-    <img src="../assets/images/Anne_2.png" id="logo_img" alt="">
-    <a routerLink="/" id="logo">
-     ANNE
-    </a>
-  </div>
-  <div class="nav-ls">
-    <ul class="news-head">
-      <li class="nav-item"><a routerLink="/category/tech"><button class="nav-link">Technology</button></a></li>
-      <li class="nav-item"><a routerLink="/category/business"><button class="nav-link">Business</button></a></li>
-      <li class="nav-item"><a routerLink="/category/sport"><button class="nav-link">Sports</button></a></li>
-      <li class="nav-item"><a routerLink="/category/politics"><button class="nav-link">Politics</button></a></li>
-      <li class="nav-item"><a routerLink="/category/entertainment"><button class="nav-link">Entertainment</button></a></li>
-    </ul>
-  </div>
-  </div>
-</nav>
-<mat-card class="lower-card">
-  <p>Articles</p>
-  
-</mat-card>
-<mat-progress-bar [mode]="'indeterminate'" color="warm" *ngIf="loading"></mat-progress-bar>
 <router-outlet></router-outlet>
 
 <div class="spinner" *ngIf="loading">

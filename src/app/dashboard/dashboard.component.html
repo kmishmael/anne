@@ -1,9 +1,11 @@
+<app-navhead></app-navhead>
 <div class="low-nav">
     <button mat-icon-button color="primary" class="home">
         <mat-icon>home</mat-icon>
     </button>
-    <button mat-raised-button color="primary" id="add" routerLink="/article/create/">Create</button>
+    <button mat-raised-button color="primary" id="add" routerLink="/article/create/" *ngIf="isLoggedIn">Create</button>
 </div>
+<div class="container-fluid">
 <section class="container">    
     <div class="articles" *ngIf="posts">
         <ul>
@@ -29,8 +31,10 @@
         <div class="pagination-controls container" style="text-align: center;">
             <i id="prev" class="bi bi-arrow-left-short" (click)="getPrevPage()"></i>
             <i id="next" class="bi bi-arrow-right-short" (click)="getNextPage()"></i>
+            <span style="float: right;">Page {{ pageNumber}} of {{ numOfPages }}</span>
+
         </div>
     </div>
 </section>
-
+</div>
 <router-outlet></router-outlet>

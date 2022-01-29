@@ -45,12 +45,14 @@ export class PostService {
   } 
   
   //get Posts belonging to a certain category
-  getTaggedPosts(category: string): Observable<Post[]>{
-    return this.httpClient.get<Post[]>(this.postsUrl.concat(`${category}/`))
+  getTaggedPosts(category: string, params: HttpParams): Observable<any>{
+    return this.httpClient.get<any>(this.postsUrl.concat(`${category}/`), {params})
     .pipe(
       retry(3)
     )
   }
+
+
 
   //create an article using post request
   createArticle(post: Post): Observable<any>{

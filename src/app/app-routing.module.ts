@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PostdetailComponent } from './postdetail/postdetail.component';
 import { TechnologyComponent } from './tagposts/tagposts.component';
 import { PosteditComponent } from './postedit/postedit.component';
+import { RegisterComponent, LoginComponent } from './account/account.component';
 
 const routes: Routes = [
   // home page routes
@@ -23,14 +24,18 @@ const routes: Routes = [
   { path: 'category/:category', component: TechnologyComponent },
   { path: 'category/:category/article/:id', component: PostdetailComponent},
 
+  // Auth
+  { path: 'users/login', component: LoginComponent },
+  { path: 'users/register', component: RegisterComponent },
+
   // Create an article
- // {path: 'post/create', component: DashboardComponent}
+ // 
 
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled',onSameUrlNavigation: 'reload'})
   ],
   exports: [RouterModule]
 })

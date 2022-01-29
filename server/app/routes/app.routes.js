@@ -2,7 +2,7 @@
 const express = require('express');
 var posts = require('../controllers/post.controller');
 var comments = require('../controllers/comment.controller');
-const { post } = require('jquery');
+var auth = require('../controllers/auth.controller');
 
 const router = express.Router();
 
@@ -13,13 +13,14 @@ router.get("/", (req, res, next) => {
 router
         //post routes
         .get('/articles', posts.findPage)
+
         .post('/articles', posts.create)
 
         .get("/article/:id", posts.findOne)
 
         .post("/article/create", posts.create)
 
-        .get("/articles/:category", posts.findCategory)
+        .get("/articles/:category", posts.findCategoryPage)
 
         .delete("/article/delete/:id", posts.delete)
 
@@ -39,6 +40,19 @@ router
         .delete("/article/comment/delete/:id", comments.delete)
 
         .delete("/article/comments/delete/:id", comments.deleteOfArticle)
+        
+          // auth routes
+        .post("/users/register/", auth.signup)
+
+        //.get("/users/profile/:id", )
+
+        .post("/users/authenticate", auth.signin)
+        
+        .get("/users/authenticate", (req, res, next) => {
+            res.json({ message: "Login API => Posting to this url" });
+        })
+
+        .get("/users/profile/:id", auth.findById)
         
 
 module.exports = router;

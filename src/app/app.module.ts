@@ -21,6 +21,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { CommentsComponent } from './comments/comments.component';
 import { optionsubComponent } from './postdetail/postdetail.component';
 import { commentEditSubComponent } from './comments/comments.component';
+import { AccountComponent, LoginComponent, RegisterComponent } from './account/account.component';
+import { NavheadComponent } from './navhead/navhead.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { commentEditSubComponent } from './comments/comments.component';
     PosteditComponent,
     CommentsComponent,
     optionsubComponent, 
-    commentEditSubComponent
+    commentEditSubComponent, AccountComponent, LoginComponent, RegisterComponent, NavheadComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,7 @@ import { commentEditSubComponent } from './comments/comments.component';
     MaterialModule,
     ReactiveFormsModule,
     AngularFirestoreModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [
     {
@@ -52,7 +54,8 @@ import { commentEditSubComponent } from './comments/comments.component';
       multi: true,
     },
     PostdetailComponent,
-    CommentsComponent
+    CommentsComponent,
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })

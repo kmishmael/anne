@@ -96,11 +96,33 @@ exports.delete = (req, res) => {
 
 //Retrieve articles belonging to one category
 
-exports.findCategory = (req, res) => {
-    Post.find({category: req.params.category}, req.body, (err, posts) =>{
+
+exports.findCategoryPage = (req, res) => {
+    var page = parseInt(req.query.page);
+    var size = parseInt(req.query.size);
+    var query = {}
+    if (page < 0 || page === 0){
+        response = {"error": true, "message": "invalid page number, should start with 1"};
+        return res.json(response)
+    }
+    query.sort = {date: -1}
+    query.skip = size * (page - 1);
+    query.limit = size;
+    //lets find some documents
+
+    Post.count({}, (err, pages) => {
         if(err){
-            res.status(500).send(err);
+            response.status(500).send(err);
         }
-        res.status(200).json(posts)
+        Post.find({category: req.params.category},{}, query, (err, data) =>{
+            // Mongo command to fetch all data from collection
+            if(err){
+                response = {"error": true,"message": "Error fetching data"};
+            } else {
+                var totalPages = Math.ceil(pages / size);
+                response = {"payload": data, "pages": totalPages};
+            }
+            res.json(response);
+        });
     })
-};
+}

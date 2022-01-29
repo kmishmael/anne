@@ -1,0 +1,3 @@
+localCommand =   "start": "concurrently -c \"yellow.bold,green.bold\" -n \"BACKEND,FRONTEND\" \"nodemon server\" \"ng serve --port 80\"",
+
+Heroku cloud command = node server.js

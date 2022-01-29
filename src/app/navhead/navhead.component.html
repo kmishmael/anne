@@ -1,0 +1,57 @@
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container" id="top-nav">
+    <div class="title-logo navbar-brand">
+      <img src="../assets/images/Anne_2.png" id="logo_img" alt="">
+      <a routerLink="/" id="logo">
+         ANNE
+      </a>
+    </div>
+    
+    <!--Toggle for themes
+    <label class="switch">
+      <input type="checkbox" (click)="toggle()" >
+      <span class="slider round"></span>
+    </label> -->
+    <div class="avatar">
+      <i class="bi bi-person-circle" [matMenuTriggerFor]="menu"></i>
+    </div>
+    
+  </div>
+</nav>
+<mat-card class="lower-card">
+  <p>Articles</p>
+
+  <div class="nav-list">
+    <ul class="news-head">
+      <li class="nav-item"><a routerLink="/category/tech"><button class="nav-link">Technology</button></a></li>
+      <li class="nav-item"><a routerLink="/category/business"><button class="nav-link">Business</button></a></li>
+      <li class="nav-item"><a routerLink="/category/sport"><button class="nav-link">Sports</button></a></li>
+      <li class="nav-item"><a routerLink="/category/politics"><button class="nav-link">Politics</button></a></li>
+      <li class="nav-item"><a routerLink="/category/entertainment"><button class="nav-link">Entertainment</button></a></li>
+    </ul>
+  </div>    
+</mat-card>
+<mat-menu #menu="matMenu" class="menu option-card">
+<!--<mat-card class="option-card">-->
+  <div class="avatar-card">
+    <i class="bi bi-person-circle"></i>
+    <p>{{ user.username }}</p>
+    <p>{{ user.email }}</p>
+  </div>
+  <div class="login" *ngIf="!isLoggedIn" >
+    <button mat-raised-button routerLink="/users/login">Login</button>
+  </div>
+  <div class="login" *ngIf="isLoggedIn">
+    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+  </div>
+  <ul class="options-head">
+    <li class="item"><a routerLink="/category/tech"><button class="nav-lin">Technology</button></a></li>
+    <li class=""><a routerLink="/category/business"><button class="nav-lin">Business</button></a></li>
+    <li class="item"><a routerLink="/category/sport"><button class="nav-lin">Sports</button></a></li>
+    <li class="item"><a routerLink="/category/politics"><button class="nav-lin">Politics</button></a></li>
+    <li class="item"><a routerLink="/category/entertainment"><button class="nav-lin">Entertainment</button></a></li>
+  </ul>
+<!--</mat-card>-->
+</mat-menu>
+<mat-progress-bar [mode]="'indeterminate'" color="warm" *ngIf="loading"></mat-progress-bar>

@@ -1,3 +1,4 @@
+<app-navhead></app-navhead>
 <div class="low-nav">
     <button mat-icon-button color="primary" class="home" (click)="goBack()">
         <i class="material-icons">arrow_back</i>
@@ -23,6 +24,12 @@
                 <pagination-controls (pageChange)="page = $event"></pagination-controls>
             </div>-->
         </ul>
+        <div class="pagination-controls container" style="text-align: center;">
+            <i id="prev" class="bi bi-arrow-left-short" (click)="getPrevPage()"></i>
+            <i id="next" class="bi bi-arrow-right-short" (click)="getNextPage()"></i>
+            <span style="float: right;">Page {{ pageNumber}} of {{ numOfPages }}</span>
+
+        </div>
     </div>
 </section>
 

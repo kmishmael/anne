@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../article';
 import { PostService } from '../post.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { map } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-tagposts',
@@ -17,10 +18,14 @@ export class TechnologyComponent implements OnInit {
   page:number = 1;
   tags: Post[];
 
-  constructor(private postService: PostService, private route: ActivatedRoute, private location: Location) { 
+  // local route params
+  pageSize: number = 12;
+  pageNumber: number = 1;
+  numOfPages: number;
+
+  constructor(private postService: PostService, private route: ActivatedRoute, private location: Location, private router: Router) { 
     this.route.paramMap.subscribe(params => {
       this.category = params.get('category')
-      this.ngOnInit();
   });
   }
 
@@ -29,19 +34,74 @@ export class TechnologyComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.getPosts();
+    if (this.router.url == `/category/${this.category}`){
+      console.log('home activated') //deprecated in production
+      this.router.navigate([`/category/${this.category}`], {queryParams: {page: this.pageNumber, size: this.pageSize}});
+    }
+    console.log(this.router.url);
+    this.getArticles();
   }
 
-  getPosts(): void{
-    //const category = this.route.snapshot.paramMap.get('category');
+  getQueryParams(): void{
+    this.route.queryParamMap.subscribe({
+      next: (params) => {
+        this.pageNumber = parseInt(params.get('page'));
+        this.pageSize = parseInt(params.get('size'));
+        console.log(this.pageSize, this.pageNumber);
+      },
+      error: (err) => {
+        console.log(err)
+      }
+      
+    })
+  }
+
+  getParams(): HttpParams{
+    return new HttpParams().set('page', this.pageNumber).set('size', this.pageSize)
+  }
+
+  getArticles(): void{
     const category = this.category;
-    this.postService.getTaggedPosts(category).subscribe(posts => {
-      this.posts = posts
-      });
-  //  this.tags = this.posts.filter(post => post.category === 'tech');
-    //console.log(this.posts)
+    const params = this.getParams();
+    console.log(params.toString())
+    this.postService.getTaggedPosts(category, params).subscribe({
+      next: (data) => {
+        this.posts = data.payload;
+        this.numOfPages = data.pages;
+      },
+      error: (err) => {
+        console.log(err) // should be deprecated on prod
+      }
+    });
   }
 
+  
+  
+  getNextPage(): void{
+    this.posts = [];
+    if (this.pageNumber >= this.numOfPages){
+      this.pageNumber;
+    }
+    else{
+      this.pageNumber++;
+    }
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    this.router.navigate([`category/${this.category}`], {queryParams: {page: this.pageNumber, size: this.pageSize}});
+    this.getArticles();
+  }
+
+  getPrevPage(): void{
+    this.posts = [];
+    if (this.pageNumber <= 1){
+      this.pageNumber;
+    } 
+    else{
+      this.pageNumber--;
+    }
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    this.router.navigate([`category/${this.category}`], {queryParams: {page: this.pageNumber, size: this.pageSize}})
+    this.getArticles();
+  }
 
 
   }

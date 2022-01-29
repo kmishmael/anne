@@ -115,3 +115,7 @@ a{
     transition-duration: 0.5s;
     transition: ease-in;
 }
+#page-size{
+    width: 60px;
+    height: 30px;
+}

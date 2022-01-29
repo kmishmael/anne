@@ -1,4 +1,4 @@
-///const port = 8080;
+const port = 8080;
 
 const cors = require('cors')
 const express = require('express')
@@ -10,6 +10,12 @@ const app = express();
 const db = require("./app/models/posts.model");
 const dbConfig = require("./app/config/db.config");
 var routes = require('./app/routes/app.routes')
+
+
+//import {Request, Response} from "express";
+//const cookieParser = require('cookie-parser');
+//import * as jwt from 'jsonwebtoken';
+//import * as fs from "fs";
 
 app.use(cors());
 app.use(express.json());
@@ -37,10 +43,10 @@ app.get("/", (req, res, next) => {
     res.json({ message: "Test Message" });
 });
 
-/*
+
 app.listen(port, function () {
     console.log("Runnning on " + port);
 });
-*/
+
 
 module.exports = app;
