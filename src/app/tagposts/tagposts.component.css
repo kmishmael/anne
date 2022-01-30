@@ -27,21 +27,18 @@
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 .article-title{
-    border-bottom: .5px solid rgb(199, 196, 196);
-   /* border: 1px solid black;*/
+    border-bottom: .5px solid #c7c4c4;
     height: 50px;
 }
 .title{
     color: rgb(65, 62, 62);
     font-size: 12pt;
-  /*  border: 1px solid black;*/
     margin-bottom: 0px;
 }
 .description{
     top: -50px;
     color: rgb(65, 62, 62);
     font-size: 10pt;
-   /* border: 1px solid black;*/
 }
 .article-date .article-author{
     display: inline-flex;
@@ -50,12 +47,10 @@
     display: inline-flex;
     color: rgb(65, 62, 62);
     font-size: 10pt;
-   /* border: 1px solid black;*/
     height: 30px;
 }
 .author-date p{
     margin: 10px;
-  /*border: 1px solid black;*/
     height: 25px;
     margin-top: 2px;
     margin-left: 0px;
