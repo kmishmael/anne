@@ -1,7 +1,7 @@
 # Anne
 
 The project is a MEAN stack application. It uses Angular for frontend, MongoDB for non-relational data storage, Express and finally NodeJS. Thus, the application is 
-a full stack application. The appliation is a simple news website illustrating use of non-relational database, data binding, RESTful APIs, Authentication, and Authorization.
+a full stack application. The appliation is a simple news website illustrating use of non-relational database, data binding, RESTful APIs, CRUD operations, Authentication, and Authorization.
 The app has been deployed live on [Heroku Cloud](https://annev1.herokuapp.com/) to demonstrate its performane. 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
