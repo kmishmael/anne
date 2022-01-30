@@ -1,21 +1,22 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Opinion } from '../opinion';
 import { ActivatedRoute } from '@angular/router';
 import { CommentsService } from '../comments.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css']
 })
-export class CommentsComponent implements OnInit {
+export class CommentsComponent implements OnInit, OnDestroy {
   post_id: string;
   comment: Opinion;
   comments: Opinion[];
   commentForm: FormGroup;
+  comments$: Subscription;
 
   constructor(private route: ActivatedRoute, private commentsService: CommentsService, public dialog: MatDialog) { }
 
@@ -35,7 +36,7 @@ export class CommentsComponent implements OnInit {
   getComments(): void {
 
     this.post_id = this.route.snapshot.paramMap.get('id');
-    this.commentsService.getComments(this.post_id).subscribe({
+    this.comments$ = this.commentsService.getComments(this.post_id).subscribe({
       next: (comments) =>{
         this.comments = comments
       }
@@ -116,25 +117,25 @@ export class CommentsComponent implements OnInit {
     
   }
 
+  ngOnDestroy(): void {
+    this.comments$.unsubscribe();
+  }
+
 }
 
 
 //comment edit subcomponent
 
 @Component({
-  selector: 'comment-edit',
+  selector: 'app-comment-edit',
   templateUrl: 'comment.edit.html',
 })
-export class commentEditSubComponent implements OnInit{
+export class commentEditSubComponent {
 
   comment: any;
 
   constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA)public data: any, private commentsComponent: CommentsComponent){
     this.comment = {...data};
-  }
-
-  ngOnInit(): void {
-
   }
 
   delete(id: string){

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Post } from '../article';
 import { PostService } from '../post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { map } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 
@@ -12,12 +12,13 @@ import { AuthService } from '../auth.service';
   templateUrl: './tagposts.component.html',
   styleUrls: ['./tagposts.component.css']
 })
-export class TechnologyComponent implements OnInit {
+export class TechnologyComponent implements OnInit, OnDestroy {
 
   posts: Post[];
   category: any;
   page:number = 1;
   tags: Post[];
+  articles$: Subscription;
 
   // local route params
   pageSize: number = 12;
@@ -71,7 +72,7 @@ export class TechnologyComponent implements OnInit {
     const category = this.category;
     const params = this.getParams();
   
-    this.postService.getTaggedPosts(category, params).subscribe({
+    this.articles$ = this.postService.getTaggedPosts(category, params).subscribe({
       next: (data) => {
         this.posts = data.payload;
         this.numOfPages = data.pages;
@@ -107,5 +108,8 @@ export class TechnologyComponent implements OnInit {
     this.getArticles();
   }
 
+  ngOnDestroy(): void {
+    this.articles$.unsubscribe();
+  }
 
   }

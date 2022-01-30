@@ -116,9 +116,21 @@
             "firebaseProject": "anne-7aee1",
             "firebaseHostingSite": "anne-7aee1"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "anne"
+  "defaultProject": "anne",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

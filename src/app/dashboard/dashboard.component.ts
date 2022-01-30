@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { PostService } from '../post.service';
 import { Post } from '../article';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./dashboard.component.css'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   posts: Post[];
   routeUrl: string;
@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
   buttonPublish: boolean = false;
 
   // local routes params
+  articles$: Subscription;
   pageSize: number = 12;
   pageNumber: number = 1;
   numOfPages: number;
@@ -63,7 +64,7 @@ export class DashboardComponent implements OnInit {
     //this.getQueryParams();
     const params = this.getParams();
   
-    this.postService.getArticles(params).subscribe({
+    this.articles$ = this.postService.getArticles(params).subscribe({
       next: (data) => {
         this.posts = data.payload;
         this.numOfPages = data.pages;
@@ -100,4 +101,9 @@ export class DashboardComponent implements OnInit {
     this.selectedPost = post;
     return this.selectedPost
   }
+
+  ngOnDestroy(): void {
+    this.articles$.unsubscribe();  
+  }
+
 }

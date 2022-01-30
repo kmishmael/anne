@@ -67,7 +67,7 @@ export class PostdetailComponent implements OnInit, OnDestroy {
 }
 
 @Component({
-  selector: 'post-sub-options',
+  selector: 'app-post-sub-options',
   templateUrl: 'dialog.snippet.html'
 })
 export class optionsubComponent {
