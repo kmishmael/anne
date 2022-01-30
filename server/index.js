@@ -31,10 +31,10 @@ app.get("/", (req, res, next) => {
     res.json({ message: "Test Message" });
 });
 
-/*
-app.listen(port, function () {
-    console.log("Runnning on " + port);
+
+app.listen(8080, function () {
+    console.log("Runnning on 8080" );
 });
-*/
+
 
 module.exports = app;

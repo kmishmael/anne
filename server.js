@@ -2,9 +2,10 @@ const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require("body-parser");
-//const Client  = require('mongodb').MongoClient
+
 const app = express();
-//const router = express.Router();
+
+const port = process.env.PORT || 8080;
 const dbConfig = require("./server/app/config/db.config");
 var routes = require('./server/app/routes/app.routes');
 
@@ -16,9 +17,6 @@ app.use('/api', routes);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-
-//routes("api/", app);
 
 var url = dbConfig.url;
 
@@ -38,4 +36,7 @@ app.get('/*', function(req,res){
     res.sendFile(path.join(__dirname+'/dist/anne/index.html'));
 });
 
-app.listen(process.env.PORT || 8080)
+
+app.listen(port, () => {
+    console.log("Listening on Port ", port);
+})

@@ -40,7 +40,7 @@ export class PosteditComponent implements OnInit {
     this.isAddMode = !this.id;
 
     if(!this.isAddMode){
-      console.log("we are not adding");
+
       this.postService.getArticle(this.id)
       .subscribe(post => {
         this.postForm.patchValue(post);
@@ -60,14 +60,11 @@ export class PosteditComponent implements OnInit {
     this.post = this.postForm.value;
     if (this.isAddMode){
       this.createPost(this.post);
-      console.log(this.post);
+      
     }
     else if (!this.isAddMode){
 
       this.updatePost(this.post);
-    }
-    else{
-      console.log("Choice not recognozed");
     }
   }
 
@@ -80,29 +77,16 @@ export class PosteditComponent implements OnInit {
       "content": post.content,
       "date": todayDate,
     } 
-    //let myobj = JSON.stringify(mypost);
+    
     this.postService.createArticle(mypost).subscribe({
-      error: error =>{
-        console.log('There was an error!', error.message);
-      },
       complete: () => {
         this.commentsCoponent.wait(6000).then(() => {
           this.getLatestId();
         });
-        //this.location.back();
       }
     }
     )
-    /*
-    this.httpClient.post("http://localhost:8080/post/create", myobj).subscribe({
-    next: data => {
-      this.data = data;
-  },
-  error: error => {
-      console.error('There was an error!', error.message);
-  }
-});*/
-  
+     
   }
 
   
@@ -110,12 +94,6 @@ export class PosteditComponent implements OnInit {
     this.postService.getLatest().subscribe({
       next: (post) => {
         //
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        //this.latest_id;
       }
     })
   
@@ -123,7 +101,7 @@ export class PosteditComponent implements OnInit {
 
 
   private updatePost(post: Post){
-    console.log(this.id);
+    
     var todayDate = new Date(new Date().toISOString().slice(0, 10));
     const mypost = {
       "title": post.title,
@@ -132,14 +110,12 @@ export class PosteditComponent implements OnInit {
       "content": post.content,
       "date": todayDate,
     } as Post
-    console.log(mypost)
-    
+        
     this.postService.updateArticle(mypost, this.id).subscribe({
-      error: err => {
-        console.log(err);
-      },
       complete: () => {
+
         this.location.back();
+        
       }
     });
   }

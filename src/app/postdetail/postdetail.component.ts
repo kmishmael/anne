@@ -36,9 +36,6 @@ export class PostdetailComponent implements OnInit, OnDestroy {
     this.get_article$ = this.postService.getArticle(this.id).subscribe({
       next: post => {
         this.post = post;
-      },
-      error: e => {
-        console.log(e);
       }
     })
   }
@@ -46,12 +43,6 @@ export class PostdetailComponent implements OnInit, OnDestroy {
   deletePost(id: string){
     this.dialog.closeAll();
     this.postService.deleteArticle(id).subscribe({
-      next: (response) => {
-        //console.log(response);
-      },
-      error: (err) => {
-        console.log(err);
-      },
       complete: () => {
         this.location.back();
       }
@@ -69,7 +60,7 @@ export class PostdetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("component shut down");
+    
     this.get_article$.unsubscribe();
   }
 
@@ -90,12 +81,6 @@ export class optionsubComponent {
     this.commentService.deleteCommentsOfPost(this.post_id).subscribe({
       next: (result) => {
 
-      },
-      error: (err) => {
-        console.log(err)
-      },
-      complete: () => {
-        // code here
       }
     })
   }

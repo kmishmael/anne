@@ -16,7 +16,7 @@ exports.signup = (req, res) => {
         res.status(500).send({ message: err });
         return;
       } else {
-          res.status(200).send({ message: "User was registered successfully!" });
+          res.status(200).send(user);
       }
     });
 }
@@ -76,7 +76,8 @@ exports.signup = (req, res) => {
         }
   
         if (!user) {
-          return res.status(404).send({ message: "User Not found." });
+          res.status(404).send({ message: "User Not found." });
+          return;
         }
   
         var passwordIsValid = bcrypt.compareSync(

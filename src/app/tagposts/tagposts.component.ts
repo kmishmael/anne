@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { map } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-tagposts',
@@ -23,36 +24,41 @@ export class TechnologyComponent implements OnInit {
   pageNumber: number = 1;
   numOfPages: number;
 
-  constructor(private postService: PostService, private route: ActivatedRoute, private location: Location, private router: Router) { 
+  isLoggedIn: boolean = false;
+
+  constructor(private postService: PostService, private route: ActivatedRoute, private location: Location, private router: Router,
+    private authService: AuthService) { 
     this.route.paramMap.subscribe(params => {
       this.category = params.get('category')
   });
+  }
+  
+  ngOnInit(): void {
+
+    if (this.router.url == `/category/${this.category}`){
+      
+      this.router.navigate([`/category/${this.category}`], {queryParams: {page: this.pageNumber, size: this.pageSize}});
+   
+    }
+    
+    this.authService.getUser();
+    this.isLoggedIn = this.authService.isLoggedIn;
+
+    this.getArticles();
   }
 
   goBack(){
     this.location.back();
   }
-  
-  ngOnInit(): void {
-    if (this.router.url == `/category/${this.category}`){
-      console.log('home activated') //deprecated in production
-      this.router.navigate([`/category/${this.category}`], {queryParams: {page: this.pageNumber, size: this.pageSize}});
-    }
-    console.log(this.router.url);
-    this.getArticles();
-  }
 
   getQueryParams(): void{
     this.route.queryParamMap.subscribe({
       next: (params) => {
+
         this.pageNumber = parseInt(params.get('page'));
         this.pageSize = parseInt(params.get('size'));
-        console.log(this.pageSize, this.pageNumber);
-      },
-      error: (err) => {
-        console.log(err)
-      }
-      
+        
+      }      
     })
   }
 
@@ -61,16 +67,14 @@ export class TechnologyComponent implements OnInit {
   }
 
   getArticles(): void{
+
     const category = this.category;
     const params = this.getParams();
-    console.log(params.toString())
+  
     this.postService.getTaggedPosts(category, params).subscribe({
       next: (data) => {
         this.posts = data.payload;
         this.numOfPages = data.pages;
-      },
-      error: (err) => {
-        console.log(err) // should be deprecated on prod
       }
     });
   }

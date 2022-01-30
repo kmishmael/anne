@@ -55,7 +55,8 @@ import { NavheadComponent } from './navhead/navhead.component';
     },
     PostdetailComponent,
     CommentsComponent,
-    HttpClientModule
+    HttpClientModule,
+    LoginComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -33,17 +33,13 @@ export class CommentsComponent implements OnInit {
   
 
   getComments(): void {
+
     this.post_id = this.route.snapshot.paramMap.get('id');
     this.commentsService.getComments(this.post_id).subscribe({
       next: (comments) =>{
         this.comments = comments
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () =>{
-        console.log("comments collected");
       }
+      
     })
   };
 
@@ -53,19 +49,14 @@ export class CommentsComponent implements OnInit {
     this.commentsService.getComment(id).subscribe({
       next: (comment) => {
         subject.next(comment);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        
       }
+      
     });
     return subject.asObservable();
   }
 
   createComment(comment: Opinion): void {
-    console.log("comment creation");
+    
     var todayDate = new Date(new Date().toISOString().slice(0, 10));
     const mycomment = {
       "post_id": this.route.snapshot.paramMap.get('id'),
@@ -75,9 +66,6 @@ export class CommentsComponent implements OnInit {
     } as Opinion
     
     this.commentsService.createComment(mycomment).subscribe({
-      error: err => {
-        console.log(err);
-      },
       complete: () => {
         this.ngOnInit();
       }
@@ -92,19 +80,14 @@ export class CommentsComponent implements OnInit {
       this.createComment(this.comment)
     }
   }
-/*
-  updateComment(comment_id): void{
-    this.commentsService.updateComment(comment_id, )
-  };
-*/
+
+
   deleteComment(comment_id): void{
     this.commentsService.deleteComment(comment_id).subscribe({
-      error: err => {
-        console.log(err);
-      },
       complete: () => {
-        // code here
+      
         this.ngOnInit();
+
       }
     }
     )
@@ -117,36 +100,20 @@ export class CommentsComponent implements OnInit {
   openDialog(id: string) {
     this.getComment(id).subscribe({
       next: (comment) =>{
-      //  this.comment = comment;
+    
         this.wait(400).then(() => {
+
           this.comment = comment;
           const dialogRef = this.dialog.open(commentEditSubComponent, {data: this.comment});
           dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
+          
           })
         });
-        //console.log("is therea ");
-        //console.log(this.comment);
-      },
-      error: (err) => {
-        console.log(err);
+        
       }
     }
     )
-    //setTimeout(this.getwait, 3000);
-    /*
-    console.log(this.comment);
-
-    if(this.comment){
-      const dialogRef = this.dialog.open(commentEditSubComponent, {data: this.comment});
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-        
-      })
-    } else{
-      console.log('no comment yet')
-    }
-   */
+    
   }
 
 }
@@ -167,7 +134,7 @@ export class commentEditSubComponent implements OnInit{
   }
 
   ngOnInit(): void {
-  //  console.log(this.comment)
+
   }
 
   delete(id: string){

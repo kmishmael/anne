@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
 
   posts: Post[];
   routeUrl: string;
-  
+
   selectedPost: Post;
 
   buttonCreate: boolean = false;
@@ -38,23 +38,19 @@ export class DashboardComponent implements OnInit {
     if (this.router.url == '/articles') {
       this.router.navigate(['/articles'], {queryParams: {page: this.pageNumber, size: this.pageSize}} )
     }
-    console.log(this.router.url); 
 
     this.authService.getUser();
     this.isLoggedIn = this.authService.isLoggedIn;
-    console.log(this.isLoggedIn);
+
     this.getArticles();
   }
 
   getQueryParams(): void{
     this.route.queryParamMap.subscribe({
       next: (params) => {
+
           this.pageNumber = parseInt(params.get('page') || '1');
           this.pageSize = parseInt(params.get('size') || '12');
-          console.log(this.pageSize, this.pageNumber); /*romove on deploy */
-      },
-      error: (err) => {
-        console.log(err)
       }
       
     })
@@ -66,14 +62,11 @@ export class DashboardComponent implements OnInit {
   getArticles(): void{
     //this.getQueryParams();
     const params = this.getParams();
-    console.log(params.toString());
+  
     this.postService.getArticles(params).subscribe({
       next: (data) => {
         this.posts = data.payload;
         this.numOfPages = data.pages;
-      },
-      error: (err) => {
-        console.log(err);
       }
     });
   }

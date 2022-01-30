@@ -12,6 +12,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="form-group email">
            <!-- <label for="username">Email</label>-->
+           <div id="error"></div>
             <input placeholder="Your Email" type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.value.email.errors }" />
             <div *ngIf="submitted && loginForm.value.email.errors" class="invalid-feedback">
                 <div *ngIf="loginForm.value.email.errors.required">Email is required</div>
@@ -46,6 +47,9 @@
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
         background-color: rgb(31, 30, 30);
+    }
+    #error{
+        color: red;
     }
     .login{
         height: 100%;

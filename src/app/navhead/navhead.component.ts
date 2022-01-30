@@ -21,9 +21,6 @@ export class NavheadComponent implements OnInit {
       this.authService.user.subscribe({
         next: (user) => {
           this.user = user;
-        },
-        error: (err) => {
-          console.log(err);
         }
       })
     
@@ -31,9 +28,11 @@ export class NavheadComponent implements OnInit {
 
   ngOnInit(): void {
       this.listenToLoading();
+
       this.user = this.authService.getUser();
+
       this.isLoggedIn = this.authService.isLoggedIn;
-      console.log(this.user, this.isLoggedIn);
+      
   }
 
   listenToLoading(): void{
@@ -45,8 +44,9 @@ export class NavheadComponent implements OnInit {
   }
 
   logout(): void{
+    
     this.authService.logout();
-    console.log('Logging out successful');
+    
     location.reload();
   }
   

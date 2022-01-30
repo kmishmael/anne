@@ -72,7 +72,8 @@ login() {
 
     },
     error: (err) => {
-      console.log(err);
+      var alert = document.getElementById('error');
+      alert.innerHTML = 'Email or Password is Incorrect';
       this.loading = false
     }, 
   })
@@ -124,8 +125,9 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  loginData: User;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private loginComponent: LoginComponent) { }
 
   ngOnInit(): void {
 
@@ -151,11 +153,12 @@ export class RegisterComponent implements OnInit {
         this.authService.register(user)
             .pipe(first())
             .subscribe({
-              next: (data) => {
-                this.router.navigate(['/login']);
-              },
               error: (err) => {
                 this.loading = false;
+              },
+              complete: () => {
+                this.loading = false;
+                this.router.navigate(['/users/login']);
               }
             });
             
