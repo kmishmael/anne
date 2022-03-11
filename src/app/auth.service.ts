@@ -10,6 +10,7 @@ const httpOptions ={
   headers: new HttpHeaders({ 'content-Type': 'application/json' })
 };
 
+// available globally for injection to components through the constructor
 @Injectable({
   providedIn: 'root'
 })
