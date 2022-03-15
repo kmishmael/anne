@@ -4,7 +4,6 @@ import { PostService } from '../post.service';
 import { Post } from '../article';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
-import { isNull } from '@angular/compiler/src/output/output_ast';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -25,7 +24,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   buttonPublish: boolean = false;
 
   // local routes params
-  articles$: Subscription;
+  // subscription to allow us to unsubscribe at the end of the component lifecycle. Avoid Memory Leakage.
+  articles$: Subscription; 
   pageSize: number = 12;
   pageNumber: number = 1;
   numOfPages: number;
@@ -78,12 +78,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.pageNumber;
     }
     else{
-      this.pageNumber++;
+      this.pageNumber++; // increment by one page
     }
     window.scrollTo({top: 0, behavior: 'smooth'});
     this.router.navigate(['/articles'], {queryParams: {page: this.pageNumber, size: this.pageSize}});
     this.getArticles();
   }
+  /** TODO
+   * Add for navigation to a specific user-defined page.
+   */
 
   getPrevPage(): void{
     this.posts = [];
@@ -103,7 +106,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.articles$.unsubscribe();  
+    this.articles$.unsubscribe();   // Unsubscribe the Observable.
   }
 
 }
